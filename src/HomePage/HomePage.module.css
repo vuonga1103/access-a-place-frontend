@@ -1,0 +1,21 @@
+.banner {
+  position: relative;
+}
+
+.banner img {
+  height: 300px;
+  object-fit: cover;
+  width: 100%;
+  object-position: 0 40%;
+  filter: grayscale();
+}
+
+.banner-overlay {
+  height: 300px;
+  width: 100%;
+  background-color: black;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  opacity: 0.2;
+}

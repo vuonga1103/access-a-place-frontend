@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
+import Logo from "../HomePage/Logo/Logo";
 import styles from "./NavBar.module.css";
 
 export default function NavBar(props) {
@@ -28,10 +29,7 @@ export default function NavBar(props) {
       <div className="navbar-brand">
         <Link to="/">
           <div className="navbar-item">
-            <span className={`icon ${styles["access-icon"]}`}>
-              <i className="fas fa-universal-access fa-2x"></i>
-            </span>
-            <span className={styles["access-text"]}>Access-A-Place</span>
+            <Logo />
           </div>
         </Link>
 

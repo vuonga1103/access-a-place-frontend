@@ -1,0 +1,35 @@
+:global(.icon).access-icon {
+  color: #ff829b;
+}
+
+.icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.access-text {
+  margin-left: 10px;
+  color: #6103d3;
+  font-family: "Staatliches", cursive;
+  font-size: 1.75rem;
+  margin-top: 0.2rem;
+}
+
+:global(.icon).big-access-icon {
+  color: #ff829b;
+}
+
+.big-access-text {
+  margin-left: 2rem;
+  color: #6103d3;
+  font-family: "Staatliches", cursive;
+  font-size: 5rem;
+  margin-top: 0.2rem;
+}
+
+@media (max-width: 600px) {
+  .big-access-text {
+    font-size: 4rem;
+  }
+}
