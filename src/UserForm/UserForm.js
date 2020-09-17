@@ -87,7 +87,10 @@ export default function UserForm(props) {
         ) : null}
 
         <div className="control">
-          <button className="button is-link" onClick={handleSubmit}>
+          <button
+            className={`button is-link ${styles["submit-button"]}`}
+            onClick={handleSubmit}
+          >
             Submit
           </button>
         </div>

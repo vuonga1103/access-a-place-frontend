@@ -1,0 +1,23 @@
+:root {
+  --purple: #6103d3;
+  --pink: #ff829b;
+}
+:global(.icon).access-icon {
+  color: var(--pink);
+}
+
+.access-text {
+  margin-left: 10px;
+  color: var(--purple);
+  font-family: "Staatliches", cursive;
+  font-size: 1.75rem;
+}
+
+:global(.button.is-primary).signup-button {
+  background-color: var(--purple);
+  margin-right: 8px;
+}
+
+:global(.button.is-primary).signup-button:hover {
+  background-color: #6b02eb;
+}

@@ -43,6 +43,9 @@ const userReducer = (state = userInitialState, action) => {
         reviews,
         token: action.payload.token,
       };
+
+    case "LOG_USER_OUT":
+      return userInitialState;
     default:
       return state;
   }

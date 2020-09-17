@@ -1,9 +1,23 @@
 .form-container {
+  margin-top: 2rem;
   display: flex;
   justify-content: center;
   width: 100%;
+  text-align: center;
+}
+
+:global(.label) {
+  text-align: left;
 }
 
 .form {
-  width: 50%;
+  min-width: 400px;
+}
+
+:global(.button.is-link).submit-button {
+  background-color: #6103d3;
+}
+
+:global(.button.is-link).submit-button:hover {
+  background-color: #6b02eb;
 }
