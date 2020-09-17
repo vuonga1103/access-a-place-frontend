@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import styles from "./RegisterPage.module.css";
 
@@ -13,6 +13,7 @@ const RegisterPage = (props) => {
   });
 
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const handleRegisterSubmit = (e) => {
     e.preventDefault();
@@ -34,7 +35,7 @@ const RegisterPage = (props) => {
       alert(resp.error);
     } else {
       localStorage.token = resp.token;
-      props.setUserInformation(resp);
+      dispatch({ type: "SET_USER_INFORMATION", payload: resp });
       history.push("/");
     }
   };
@@ -125,13 +126,4 @@ const RegisterPage = (props) => {
   );
 };
 
-const setUserInformation = (userInfo) => {
-  return {
-    type: "SET_USER_INFORMATION",
-    payload: userInfo,
-  };
-};
-
-const mapDispatchToProps = { setUserInformation };
-
-export default connect(null, mapDispatchToProps)(RegisterPage);
+export default RegisterPage;

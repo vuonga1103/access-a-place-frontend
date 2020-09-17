@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import styles from "./LoginPage.module.css";
 
@@ -10,6 +10,7 @@ const LoginPage = (props) => {
   });
 
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
@@ -38,7 +39,10 @@ const LoginPage = (props) => {
       alert(resp.error);
     } else {
       localStorage.token = resp.token;
-      props.setUserInformation(resp);
+      dispatch({
+        type: "SET_USER_INFORMATION",
+        payload: resp,
+      });
       history.push("/");
     }
   };
@@ -84,13 +88,4 @@ const LoginPage = (props) => {
   );
 };
 
-const setUserInformation = (userInfo) => {
-  return {
-    type: "SET_USER_INFORMATION",
-    payload: userInfo,
-  };
-};
-
-const mapDispatchToProps = { setUserInformation };
-
-export default connect(null, mapDispatchToProps)(LoginPage);
+export default LoginPage;
