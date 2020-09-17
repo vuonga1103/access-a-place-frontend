@@ -1,5 +1,6 @@
-import React from "react";
-import { Route, Switch } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { Redirect, Route, Switch } from "react-router-dom";
 import "./App.css";
 import EstablishmentsPage from "./EstablishmentsPage/EstablishmentsPage";
 import HomePage from "./HomePage/HomePage";
@@ -9,6 +10,28 @@ import NotFoundPage from "./NotFoundPage/NotFoundPage";
 import RegisterPage from "./RegisterPage/RegisterPage";
 
 function App() {
+  const loggedIn = localStorage.getItem("token");
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (localStorage.token) {
+      persistLoggedInUser();
+    }
+  });
+
+  const persistLoggedInUser = () => {
+    fetch("http://localhost:4000/persist", {
+      headers: {
+        Authorization: `bearer ${localStorage.token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        dispatch({ type: "SET_USER_INFORMATION", payload: result });
+        localStorage.token = result.token;
+      });
+  };
+
   return (
     <div className="App">
       <NavBar />
@@ -23,11 +46,11 @@ function App() {
         </Route>
 
         <Route path="/register" exact>
-          <RegisterPage />
+          {loggedIn ? <Redirect to="/" /> : <RegisterPage />}
         </Route>
 
         <Route path="/login" exact>
-          <LoginPage />
+          {loggedIn ? <Redirect to="/" /> : <LoginPage />}
         </Route>
 
         <Route path="/" exact>

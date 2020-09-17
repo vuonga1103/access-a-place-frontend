@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import styles from "./RegisterPage.module.css";
+import UserForm from "../UserForm/UserForm";
 
 const RegisterPage = (props) => {
   const [form, setForm] = useState({
@@ -15,7 +15,7 @@ const RegisterPage = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const handleRegisterSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     fetch("http://localhost:4000/users", {
@@ -48,81 +48,11 @@ const RegisterPage = (props) => {
   };
 
   return (
-    <div className={styles["form-container"]}>
-      <form className={styles.form} onSubmit={handleRegisterSubmit}>
-        <h3 className="title">Register</h3>
-        <div className="field">
-          <label className="label">First Name</label>
-          <div className="control">
-            <input
-              className="input"
-              type="text"
-              name="first_name"
-              placeholder="First Name"
-              required
-              onChange={handleChange}
-            />
-          </div>
-        </div>
-        <div className="field">
-          <label className="label">Last Name</label>
-          <div className="control">
-            <input
-              className="input"
-              type="text"
-              name="last_name"
-              placeholder="Last Name"
-              required
-              onChange={handleChange}
-            />
-          </div>
-        </div>
-        <div className="field">
-          <label className="label">Email</label>
-          <div className="control">
-            <input
-              className="input"
-              type="email"
-              name="email"
-              placeholder="Email"
-              required
-              onChange={handleChange}
-            />
-          </div>
-        </div>
-        <div className="field">
-          <label className="label">Password</label>
-          <div className="control">
-            <input
-              className="input"
-              type="password"
-              name="password"
-              placeholder="Password"
-              required
-              onChange={handleChange}
-            />
-          </div>
-        </div>
-        <div className="field">
-          <label className="label">Confirm Password</label>
-          <div className="control">
-            <input
-              className="input"
-              type="password"
-              name="password_confirm"
-              placeholder="Confirm Password"
-              required
-              onChange={handleChange}
-            />
-          </div>
-        </div>
-        <div className="control">
-          <button className="button is-link" onClick={handleRegisterSubmit}>
-            Submit
-          </button>
-        </div>
-      </form>
-    </div>
+    <UserForm
+      handleChange={handleChange}
+      handleSubmit={handleSubmit}
+      register
+    />
   );
 };
 

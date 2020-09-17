@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import styles from "./LoginPage.module.css";
+import UserForm from "../UserForm/UserForm";
 
 const LoginPage = (props) => {
   const [form, setForm] = useState({
@@ -12,7 +12,7 @@ const LoginPage = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const handleLoginSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     fetch("http://localhost:4000/login", {
@@ -48,43 +48,7 @@ const LoginPage = (props) => {
   };
 
   return (
-    <div className={styles["form-container"]}>
-      <form className={styles.form} onSubmit={handleLoginSubmit}>
-        <h3 className="title">Log In</h3>
-        <div className="field">
-          <label className="label">Email</label>
-          <div className="control">
-            <input
-              className="input"
-              type="email"
-              name="email"
-              placeholder="Email"
-              required
-              onChange={handleChange}
-            />
-          </div>
-        </div>
-        <div className="field">
-          <label className="label">Password</label>
-          <div className="control">
-            <input
-              className="input"
-              type="password"
-              name="password"
-              placeholder="Password"
-              required
-              onChange={handleChange}
-            />
-          </div>
-        </div>
-
-        <div className="control">
-          <button className="button is-link" onClick={handleLoginSubmit}>
-            Submit
-          </button>
-        </div>
-      </form>
-    </div>
+    <UserForm handleSubmit={handleSubmit} handleChange={handleChange} login />
   );
 };
 
