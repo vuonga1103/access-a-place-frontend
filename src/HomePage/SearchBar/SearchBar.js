@@ -25,11 +25,17 @@ export default function SearchBar(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const urlEncodedTerm = encodeURI(search.term);
-    const urlEncodedLocation = encodeURI(search.location);
-    history.push(
-      `/search?find_desc=${urlEncodedTerm}&find_loc=${urlEncodedLocation}`
-    );
+
+    if (!search.location || !search.term) {
+      const missingField = !search.term ? "term" : "location";
+      alert("Please enter search " + missingField);
+    } else {
+      const urlEncodedTerm = encodeURI(search.term);
+      const urlEncodedLocation = encodeURI(search.location);
+      history.push(
+        `/search?find_desc=${urlEncodedTerm}&find_loc=${urlEncodedLocation}`
+      );
+    }
   };
 
   return (
