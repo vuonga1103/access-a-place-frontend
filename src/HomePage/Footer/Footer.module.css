@@ -1,0 +1,7 @@
+:global(.footer).page-footer {
+  margin-top: 5rem;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}

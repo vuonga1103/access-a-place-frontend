@@ -1,3 +1,8 @@
+.homepage-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .banner {
   position: relative;
 }
@@ -18,4 +23,17 @@
   left: 0px;
   top: 0px;
   opacity: 0.2;
+}
+
+.quote {
+  margin-top: 3rem;
+  text-align: center;
+  font-size: 1.2rem;
+  color: grey;
+}
+
+.quote .author {
+  margin-top: 0.5rem;
+  text-align: right;
+  font-weight: 800;
 }

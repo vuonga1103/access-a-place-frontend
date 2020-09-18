@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Redirect, Route, Switch } from "react-router-dom";
 import "./App.css";
 import EstablishmentsPage from "./EstablishmentsPage/EstablishmentsPage";
+import Footer from "./HomePage/Footer/Footer";
 import HomePage from "./HomePage/HomePage";
 import LoginPage from "./LoginPage/LoginPage";
 import NavBar from "./NavBar/NavBar";
@@ -10,8 +11,8 @@ import NotFoundPage from "./NotFoundPage/NotFoundPage";
 import RegisterPage from "./RegisterPage/RegisterPage";
 
 function App() {
-  const loggedIn = localStorage.getItem("token");
   const dispatch = useDispatch();
+  const loggedIn = useSelector((state) => state.userInformation.token);
 
   useEffect(() => {
     if (localStorage.token) {
@@ -41,7 +42,7 @@ function App() {
           <EstablishmentsPage />
         </Route>
 
-        <Route path="/results" exact>
+        <Route path="/search" exact>
           <EstablishmentsPage />
         </Route>
 
@@ -59,6 +60,8 @@ function App() {
 
         <Route path="*" component={NotFoundPage} />
       </Switch>
+
+      <Footer />
     </div>
   );
 }

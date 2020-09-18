@@ -1,0 +1,31 @@
+.search-result {
+  display: flex;
+  max-width: 700px;
+  width: 100%;
+  margin-bottom: 1rem;
+  background-color: rgb(250, 243, 243);
+  border-radius: 10px;
+}
+
+.business-image {
+  width: 125px;
+  height: 125px;
+
+  margin-right: 1rem;
+  object-fit: cover;
+}
+
+.business-info {
+  margin-top: 0.7rem;
+  margin-right: 1rem;
+  width: 300px;
+}
+
+.business-info p {
+  margin-top: -1.5rem;
+}
+
+.contact-info p {
+  margin-top: 1rem;
+  font-size: 1rem;
+}

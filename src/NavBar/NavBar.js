@@ -1,17 +1,18 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import Logo from "../HomePage/Logo/Logo";
+import SearchBar from "../HomePage/SearchBar/SearchBar";
 import styles from "./NavBar.module.css";
 
 export default function NavBar(props) {
   // TODO
   const handleBurgerClick = () => {};
 
-  const token = useSelector((state) => state.userInformation.token);
-  const loggedIn = token.length > 0;
+  const loggedIn = useSelector((state) => state.userInformation.token);
   const dispatch = useDispatch();
   const history = useHistory();
+  const location = useLocation();
 
   const handleLogOut = () => {
     dispatch({ type: "LOG_USER_OUT" });
@@ -53,9 +54,12 @@ export default function NavBar(props) {
             <Link to="/">Home</Link>
           </div>
 
-          <div className="navbar-item">Documentation</div>
+          <div className="navbar-item">About</div>
 
-          <div className="navbar-item has-dropdown is-hoverable">
+          <div className="navbar-item">
+            {location.pathname === "/search" && <SearchBar small />}
+          </div>
+          {/* <div className="navbar-item has-dropdown is-hoverable">
             <div className="navbar-link">More</div>
 
             <div className="navbar-dropdown">
@@ -65,7 +69,7 @@ export default function NavBar(props) {
               <hr className="navbar-divider" />
               <div className="navbar-item">Report an issue</div>
             </div>
-          </div>
+          </div> */}
         </div>
 
         {!loggedIn ? (

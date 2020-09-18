@@ -1,0 +1,7 @@
+:global(.button.is-primary).search-button {
+  background-color: #6103d3;
+}
+
+:global(.button.is-primary).search-button:hover {
+  background-color: #6b02eb;
+}

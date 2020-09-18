@@ -8,8 +8,8 @@ export default function UserForm(props) {
     <div className={styles["form-container"]}>
       <form className={styles.form} onSubmit={handleSubmit}>
         <h3 className="title">
-          {props.register ? "Register" : null}
-          {props.login ? "Log In" : null}
+          {props.register && "Register"}
+          {props.login && "Log In"}
         </h3>
 
         {props.register ? (

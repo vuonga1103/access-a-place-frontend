@@ -12,7 +12,11 @@ import { Provider } from "react-redux";
  *
  **/
 
-const establishmentInitialState = { establishments: [] };
+const establishmentInitialState = {
+  establishments: [],
+  search: { term: "", location: "" },
+};
+
 const userInitialState = {
   id: 0,
   token: "",
@@ -24,6 +28,18 @@ const userInitialState = {
 
 const establishmentReducer = (state = establishmentInitialState, action) => {
   switch (action.type) {
+    case "SET_SEARCH":
+      return { ...state, search: action.payload };
+
+    case "CLEAR_SEARCH":
+      return { ...state, search: establishmentInitialState.search };
+
+    case "SET_ESTABLISHMENTS":
+      return { ...state, establishments: action.payload };
+
+    case "CLEAR_ESTABLISHMENTS":
+      return { ...state, establishments: [] };
+
     default:
       return state;
   }
