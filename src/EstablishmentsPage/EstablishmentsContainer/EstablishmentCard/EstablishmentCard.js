@@ -20,7 +20,8 @@ export default function EstablishmentCard({ establishment }) {
       <div className={styles["contact-info"]}>
         <p>
           {display_address[0]}
-          <br /> {display_address[1]}
+          <br />
+          {display_address[1]}
         </p>
         <p>{display_phone}</p>
       </div>

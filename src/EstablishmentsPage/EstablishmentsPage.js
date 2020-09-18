@@ -32,7 +32,7 @@ export default function EstablishmentsPage() {
       .then((result) =>
         dispatch({ type: "SET_ESTABLISHMENTS", payload: result.businesses })
       )
-      .catch((error) => console.warn(error));
+      .catch((error) => console.log(error));
   };
 
   return (
