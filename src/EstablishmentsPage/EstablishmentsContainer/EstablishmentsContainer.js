@@ -7,7 +7,7 @@ export default function EstablishmentsContainer() {
     (state) => state.establishmentInformation.establishments
   );
 
-  if (!establishments) return <></>;
+  if (!establishments.length) return <div>No Result Found</div>;
 
   const searchResults = establishments.map((est) => (
     <EstablishmentCard key={est.id} establishment={est} />

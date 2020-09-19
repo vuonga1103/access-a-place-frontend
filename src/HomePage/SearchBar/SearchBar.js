@@ -13,7 +13,10 @@ export default function SearchBar(props) {
     const params = new URLSearchParams(location.search);
     const termParam = params.get("find_desc");
     const locationParam = params.get("find_loc");
-    initialSearchState = { term: termParam, location: locationParam };
+    initialSearchState = {
+      term: termParam || "",
+      location: locationParam || "",
+    };
   }
 
   const [search, setSearch] = useState(initialSearchState);
@@ -44,13 +47,13 @@ export default function SearchBar(props) {
       onKeyDown={(e) => e.key === "Enter" && handleSubmit(e)}
     >
       <div className="control">
-        <div className={`button is-static ${props.small ? "is-small" : null}`}>
+        <div className={`button is-static ${props.small ? "is-small" : ""}`}>
           FIND
         </div>
       </div>
       <div className="control">
         <input
-          className={`input ${props.small ? "is-small" : null}`}
+          className={`input ${props.small ? "is-small" : ""}`}
           type="text"
           placeholder="restaurants, gyms, etc."
           name="term"
@@ -59,13 +62,13 @@ export default function SearchBar(props) {
         />
       </div>
       <div className="control">
-        <div className={`button is-static ${props.small ? "is-small" : null}`}>
+        <div className={`button is-static ${props.small ? "is-small" : ""}`}>
           NEAR
         </div>
       </div>
       <div className="control">
         <input
-          className={`input ${props.small ? "is-small" : null}`}
+          className={`input ${props.small ? "is-small" : ""}`}
           type="text"
           placeholder="city, state, or zip"
           name="location"
@@ -75,7 +78,7 @@ export default function SearchBar(props) {
       </div>
       <div className="control">
         <div
-          className={`button is-primary ${props.small ? "is-small" : null} ${
+          className={`button is-primary ${props.small ? "is-small" : ""} ${
             styles["search-button"]
           }`}
           onClick={handleSubmit}

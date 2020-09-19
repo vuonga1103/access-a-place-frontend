@@ -1,13 +1,15 @@
 import React from "react";
+import BusinessRating from "./BusinessRating/BusinessRating";
 import styles from "./EstablishmentCard.module.css";
 
 export default function EstablishmentCard({ establishment }) {
   const {
     name,
     image_url,
-    location: { display_address },
-    display_phone,
+    location,
+    phone,
     categories,
+    average_overall,
   } = establishment;
 
   return (
@@ -15,15 +17,16 @@ export default function EstablishmentCard({ establishment }) {
       <img src={image_url} alt={name} className={styles["business-image"]} />
       <div className={styles["business-info"]}>
         <h2 className="subtitle">{name}</h2>
-        <p>{categories.map((c) => c.title).join(", ")}</p>
+        <p>{categories.join(", ")}</p>
+        <BusinessRating rating={average_overall} />
       </div>
       <div className={styles["contact-info"]}>
         <p>
-          {display_address[0]}
+          {location[0]}
           <br />
-          {display_address[1]}
+          {location[1]}
         </p>
-        <p>{display_phone}</p>
+        <p>{phone}</p>
       </div>
     </div>
   );

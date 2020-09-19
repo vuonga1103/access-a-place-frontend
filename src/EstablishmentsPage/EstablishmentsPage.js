@@ -3,13 +3,12 @@ import { useDispatch } from "react-redux";
 import EstablishmentsContainer from "./EstablishmentsContainer/EstablishmentsContainer";
 import EstablishmentsMap from "./EstablishmentsMap/EstablishmentsMap";
 import queryString from "query-string";
-import { useLocation } from "react-router-dom";
-
-const API_KEY = process.env.REACT_APP_YELP_API_KEY;
+import { useHistory, useLocation } from "react-router-dom";
 
 export default function EstablishmentsPage() {
   const dispatch = useDispatch();
   const location = useLocation();
+  const history = useHistory();
 
   const params = new URLSearchParams(location.search);
   const termParam = params.get("find_desc");
@@ -22,22 +21,25 @@ export default function EstablishmentsPage() {
   });
 
   const fetchEstablishments = () => {
+    // If no term or location is input in the URL search params, then take user back to home
+    if (!termParam || !locationParam) {
+      return history.push("/");
+    }
+
     const query = queryString.stringify(search);
-    fetch(
-      `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?${query}`,
-      {
-        headers: {
-          Authorization: `Bearer ${API_KEY}`,
-          Origin: "localhost",
-          withCredentials: true,
-        },
-      }
-    )
+
+    fetch("http://localhost:4000/yelp", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ query }),
+    })
       .then((response) => response.json())
-      .then((result) =>
-        dispatch({ type: "SET_ESTABLISHMENTS", payload: result.businesses })
-      )
-      .catch((error) => console.log(error));
+      .then((establishments) => {
+        dispatch({ type: "SET_ESTABLISHMENTS", payload: establishments });
+      });
   };
 
   return (
