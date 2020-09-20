@@ -1,8 +1,15 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import BusinessRating from "./BusinessRating/BusinessRating";
 import styles from "./EstablishmentCard.module.css";
 
 export default function EstablishmentCard({ establishment }) {
+  const dispatch = useDispatch();
+
+  const handleMouseOver = () => {
+    dispatch({ type: "SET_SELECTED_ESTABLISHMENT", payload: establishment });
+  };
+
   const {
     name,
     image_url,
@@ -13,7 +20,7 @@ export default function EstablishmentCard({ establishment }) {
   } = establishment;
 
   return (
-    <div className={styles["search-result"]}>
+    <div className={styles["search-result"]} onMouseOver={handleMouseOver}>
       <img src={image_url} alt={name} className={styles["business-image"]} />
       <div className={styles["business-info"]}>
         <h2 className="subtitle">{name}</h2>

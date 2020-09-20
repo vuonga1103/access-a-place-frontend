@@ -14,6 +14,7 @@ import { Provider } from "react-redux";
 
 const establishmentInitialState = {
   establishments: [],
+  selectedEstablishment: null,
 };
 
 const userInitialState = {
@@ -32,6 +33,9 @@ const establishmentReducer = (state = establishmentInitialState, action) => {
 
     case "CLEAR_ESTABLISHMENTS":
       return { ...state, establishments: [] };
+
+    case "SET_SELECTED_ESTABLISHMENT":
+      return { ...state, selectedEstablishment: action.payload };
 
     default:
       return state;

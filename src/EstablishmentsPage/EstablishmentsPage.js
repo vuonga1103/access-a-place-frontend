@@ -4,6 +4,7 @@ import EstablishmentsContainer from "./EstablishmentsContainer/EstablishmentsCon
 import EstablishmentsMap from "./EstablishmentsMap/EstablishmentsMap";
 import queryString from "query-string";
 import { useHistory, useLocation } from "react-router-dom";
+import styles from "./EstablishmentsPage.module.css";
 
 export default function EstablishmentsPage() {
   const dispatch = useDispatch();
@@ -43,9 +44,13 @@ export default function EstablishmentsPage() {
   };
 
   return (
-    <div>
-      <EstablishmentsContainer />
-      <EstablishmentsMap />
+    <div className={styles.container}>
+      <div className={styles.establishments}>
+        <EstablishmentsContainer />
+      </div>
+      <div className={styles.map}>
+        <EstablishmentsMap />
+      </div>
     </div>
   );
 }

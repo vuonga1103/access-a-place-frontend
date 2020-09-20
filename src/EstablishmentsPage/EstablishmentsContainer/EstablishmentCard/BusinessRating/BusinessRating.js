@@ -4,6 +4,7 @@ import Rating from "react-rating";
 export default function BusinessRating(props) {
   return (
     <div>
+      <i className="fas fa-wheelchair"></i>{" "}
       <Rating
         emptySymbol="far fa-star"
         fullSymbol="fas fa-star"

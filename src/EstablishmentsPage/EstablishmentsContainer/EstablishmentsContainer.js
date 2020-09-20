@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import EstablishmentCard from "./EstablishmentCard/EstablishmentCard";
+import styles from "./EstablishmentsContainer.module.css";
 
 export default function EstablishmentsContainer() {
   const establishments = useSelector(
@@ -13,5 +14,5 @@ export default function EstablishmentsContainer() {
     <EstablishmentCard key={est.id} establishment={est} />
   ));
 
-  return <div>{searchResults}</div>;
+  return <div className={styles.container}>{searchResults}</div>;
 }

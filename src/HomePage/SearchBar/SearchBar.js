@@ -43,7 +43,7 @@ export default function SearchBar(props) {
 
   return (
     <form
-      className="field has-addons"
+      className={`${styles["search-container"]} field has-addons`}
       onKeyDown={(e) => e.key === "Enter" && handleSubmit(e)}
     >
       <div className="control">
@@ -51,6 +51,7 @@ export default function SearchBar(props) {
           FIND
         </div>
       </div>
+
       <div className="control">
         <input
           className={`input ${props.small ? "is-small" : ""}`}

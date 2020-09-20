@@ -1,3 +1,8 @@
+.search-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 :global(.button.is-primary).search-button {
   background-color: #6103d3;
 }

@@ -1,6 +1,6 @@
 .search-result {
   display: flex;
-  max-width: 700px;
+  flex-wrap: wrap;
   width: 100%;
   margin-bottom: 1rem;
   background-color: rgb(250, 243, 243);
@@ -8,17 +8,20 @@
 }
 
 .business-image {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
   width: 125px;
   height: 125px;
-
   margin-right: 1rem;
   object-fit: cover;
+  cursor: pointer;
 }
 
 .business-info {
   margin-top: 0.7rem;
   margin-right: 1rem;
   width: 300px;
+  cursor: pointer;
 }
 
 .business-info p {

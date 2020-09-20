@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+}
+
+.establishments {
+  margin: 2rem;
+  width: 60%;
+}
+
+.map {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  margin-right: 2rem;
+  width: 40%;
+}

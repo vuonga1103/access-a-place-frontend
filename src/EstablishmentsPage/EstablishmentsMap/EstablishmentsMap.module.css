@@ -1,0 +1,17 @@
+.popup-container {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+:global(.title.is-6).popup-title {
+  margin-bottom: -0.1rem;
+}
+
+.popup-image {
+  height: 150px;
+  width: 150px;
+  object-fit: cover;
+  margin-bottom: 0.5rem;
+}
