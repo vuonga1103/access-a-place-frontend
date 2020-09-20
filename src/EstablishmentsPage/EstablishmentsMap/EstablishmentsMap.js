@@ -32,23 +32,38 @@ export default function EstablishmentsMap() {
       });
   }, [establishments]);
 
-  const establishmentMarkers =
-    establishments.length &&
-    establishments.map((est) => (
-      <Marker
-        key={est.id}
-        latitude={est.coordinates.latitude}
-        longitude={est.coordinates.longitude}
-      >
-        <div
-          onClick={(e) =>
-            dispatch({ type: "SET_SELECTED_ESTABLISHMENT", payload: est })
-          }
-        >
-          <i className="fas fa-map-marker-alt fa-2x"></i>
-        </div>
-      </Marker>
-    ));
+  const showEstablishmentMarkers = () => {
+    if (establishments.length) {
+      return establishments.map((est) => {
+        // const markerColor =
+        //   selectedEstablishment && selectedEstablishment === est
+        //     ? { color: "blue" }
+        //     : { color: "black" };
+
+        return (
+          <Marker
+            key={est.id}
+            latitude={est.coordinates.latitude}
+            longitude={est.coordinates.longitude}
+          >
+            <div
+              onClick={(e) =>
+                dispatch({ type: "SET_SELECTED_ESTABLISHMENT", payload: est })
+              }
+            >
+              <i
+                className="fas fa-map-marker-alt fa-2x"
+                // style={markerColor}
+              ></i>
+              {/* {selectedEstablishment &&
+                selectedEstablishment.id === est.id &&
+                "hello"} */}
+            </div>
+          </Marker>
+        );
+      });
+    }
+  };
 
   const showSelectedEstablishmentPopup = () => {
     if (selectedEstablishment) {
@@ -89,7 +104,7 @@ export default function EstablishmentsMap() {
         onViewportChange={(viewport) => setViewport(viewport)}
         mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_API_KEY}
       >
-        {establishmentMarkers}
+        {showEstablishmentMarkers()}
         {showSelectedEstablishmentPopup()}
       </ReactMapGL>
     </div>

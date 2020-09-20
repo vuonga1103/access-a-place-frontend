@@ -17,8 +17,11 @@ export default function EstablishmentsPage() {
   const search = { term: termParam, location: locationParam };
 
   useEffect(() => {
-    dispatch({ type: "CLEAR_ESTABLISHMENTS" });
     fetchEstablishments();
+
+    return () => {
+      dispatch({ type: "SET_SELECTED_ESTABLISHMENT", payload: null });
+    };
   });
 
   const fetchEstablishments = () => {
@@ -29,7 +32,7 @@ export default function EstablishmentsPage() {
 
     const query = queryString.stringify(search);
 
-    fetch("http://localhost:4000/yelp", {
+    fetch("http://localhost:4000/yelp-establishments", {
       method: "POST",
       headers: {
         Accept: "application/json",

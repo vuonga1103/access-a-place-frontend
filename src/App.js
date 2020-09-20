@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Redirect, Route, Switch } from "react-router-dom";
 import "./App.css";
 import EstablishmentsPage from "./EstablishmentsPage/EstablishmentsPage";
+import EstablishmentPage from "./EstablishmentPage/EstablishmentPage";
 import Footer from "./HomePage/Footer/Footer";
 import HomePage from "./HomePage/HomePage";
 import LoginPage from "./LoginPage/LoginPage";
@@ -38,13 +39,9 @@ function App() {
       <NavBar />
 
       <Switch>
-        <Route path="/establishment-page/:id">
-          <EstablishmentsPage />
-        </Route>
+        <Route path="/establishment/:slug" component={EstablishmentPage} />
 
-        <Route path="/search" exact>
-          <EstablishmentsPage />
-        </Route>
+        <Route path="/search" exact component={EstablishmentsPage} />
 
         <Route path="/register" exact>
           {loggedIn ? <Redirect to="/" /> : <RegisterPage />}
@@ -54,9 +51,7 @@ function App() {
           {loggedIn ? <Redirect to="/" /> : <LoginPage />}
         </Route>
 
-        <Route path="/" exact>
-          <HomePage />
-        </Route>
+        <Route path="/" exact component={HomePage} />
 
         <Route path="*" component={NotFoundPage} />
       </Switch>

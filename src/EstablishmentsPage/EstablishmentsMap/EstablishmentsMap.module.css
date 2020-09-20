@@ -1,8 +1,16 @@
 .popup-container {
   margin-top: 10px;
+  width: 175px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
+}
+
+.popup-container p {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  line-height: 100%;
 }
 
 :global(.title.is-6).popup-title {
