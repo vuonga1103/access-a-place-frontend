@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import styles from "./SearchBar.module.css";
 
 export default function SearchBar(props) {
   const location = useLocation();
+  const dispatch = useDispatch();
 
   let initialSearchState;
 
@@ -35,6 +37,8 @@ export default function SearchBar(props) {
     } else {
       const urlEncodedTerm = encodeURI(search.term);
       const urlEncodedLocation = encodeURI(search.location);
+
+      dispatch({ type: "SET_NOT_LOADED" });
       history.push(
         `/search?find_desc=${urlEncodedTerm}&find_loc=${urlEncodedLocation}`
       );

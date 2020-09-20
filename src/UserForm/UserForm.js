@@ -12,7 +12,7 @@ export default function UserForm(props) {
           {props.login && "Log In"}
         </h3>
 
-        {props.register ? (
+        {props.register && (
           <>
             <div className="field">
               <label className="label">First Name</label>
@@ -41,7 +41,7 @@ export default function UserForm(props) {
               </div>
             </div>
           </>
-        ) : null}
+        )}
 
         <div className="field">
           <label className="label">Email</label>
@@ -70,7 +70,7 @@ export default function UserForm(props) {
           </div>
         </div>
 
-        {props.register ? (
+        {props.register && (
           <div className="field">
             <label className="label">Confirm Password</label>
             <div className="control">
@@ -84,7 +84,7 @@ export default function UserForm(props) {
               />
             </div>
           </div>
-        ) : null}
+        )}
 
         <div className="control">
           <button

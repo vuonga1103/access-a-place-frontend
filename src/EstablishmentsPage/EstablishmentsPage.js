@@ -38,8 +38,11 @@ export default function EstablishmentsPage() {
       body: JSON.stringify({ query }),
     })
       .then((response) => response.json())
-      .then((establishments) => {
-        dispatch({ type: "SET_ESTABLISHMENTS", payload: establishments });
+      .then((result) => {
+        if (!result.error) {
+          dispatch({ type: "SET_ESTABLISHMENTS", payload: result });
+        }
+        dispatch({ type: "SET_LOADED" });
       });
   };
 

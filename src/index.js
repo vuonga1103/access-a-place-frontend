@@ -15,6 +15,7 @@ import { Provider } from "react-redux";
 const establishmentInitialState = {
   establishments: [],
   selectedEstablishment: null,
+  loaded: false,
 };
 
 const userInitialState = {
@@ -36,6 +37,12 @@ const establishmentReducer = (state = establishmentInitialState, action) => {
 
     case "SET_SELECTED_ESTABLISHMENT":
       return { ...state, selectedEstablishment: action.payload };
+
+    case "SET_LOADED":
+      return { ...state, loaded: true };
+
+    case "SET_NOT_LOADED":
+      return { ...state, loaded: false };
 
     default:
       return state;
