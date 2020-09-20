@@ -5,6 +5,7 @@ import ReviewsContainer from "./ReviewsContainer/ReviewsContainer";
 import styles from "./EstablishmentPage.module.css";
 import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
+import moment from "moment";
 
 export default function EstablishmentPage() {
   const [establishment, setEstablishment] = useState(null);
@@ -55,32 +56,63 @@ export default function EstablishmentPage() {
 
   if (!establishment) return <></>;
 
+  const showOpenTimes = () => {
+    if (establishment) {
+      return establishment.hours[0]["open"].map((dayObj) => {
+        const dayOfWeek = moment().day(dayObj.day).format("dddd");
+        let openTime = moment(dayObj.start, "HH:mm").format("hh:mm");
+        let closeTime = moment(dayObj.end, "HH:mm").format("hh:mm");
+
+        openTime = openTime[0] === "0" ? openTime.slice(1) : openTime;
+        closeTime = closeTime[0] === "0" ? closeTime.slice(1) : closeTime;
+
+        return (
+          <li key={dayOfWeek}>
+            <strong>{`${dayOfWeek}: `}</strong>
+            {` ${openTime} - ${closeTime}`}
+          </li>
+        );
+      });
+    }
+  };
+
   return (
     <div className={styles.container}>
-      <h2 className={`title is-2 ${styles.name}`}>{establishment.name}</h2>
+      <div className={styles["heading-container"]}>
+        <h2 className={`title is-2 ${styles.name}`}>{establishment.name}</h2>
+
+        <h4 className={`subtitle ${styles.address}`}>
+          {establishment.location[0]} <br /> {establishment.location[1]} <br />
+          {establishment.phone}
+          <br />
+        </h4>
+      </div>
+
       <div className={styles["body-container"]}>
         <div className={styles["images-carousel"]}>
-          <AliceCarousel autoPlay autoPlayInterval="3000">
+          <AliceCarousel autoPlay autoPlayInterval={3000}>
             {showEstablishmentImages()}
-            {/* <img
-              src="https://randomwordgenerator.com/img/picture-generator/57e9d6414c53ad14f1dc8460962e33791c3ad6e04e507440742a7ed1974dc4_640.jpg"
-              className={styles.sliderimg}
-            />
-            <img
-              src="https://randomwordgenerator.com/img/picture-generator/57e6d34b4a50b10ff3d8992cc12c30771037dbf85254794177277ddd924f_640.jpg"
-              className={styles.sliderimg}
-            />
-            <img
-              src="https://randomwordgenerator.com/img/picture-generator/55e7d5464c5aa514f1dc8460962e33791c3ad6e04e507440772872dc914bc0_640.jpg"
-              className={styles.sliderimg}
-            />
-            <img
-              src="https://randomwordgenerator.com/img/picture-generator/55e8d7444e57a814f1dc8460962e33791c3ad6e04e5074417c2e7dd29744c7_640.jpg"
-              className={styles.sliderimg}
-            /> */}
           </AliceCarousel>
         </div>
+
         <div className={styles["info"]}>
+          <ul>
+            <li>
+              <strong>Categories: </strong>
+              {establishment.categories.join(", ")}
+            </li>
+            {establishment.hours[0]["is_open_now"] ? (
+              <li>
+                <i className="fas fa-door-open"></i> <strong>Open Now!</strong>
+              </li>
+            ) : (
+              <li>
+                <i className="fas fa-door-closed"></i>{" "}
+                <strong>Closed Now</strong>
+              </li>
+            )}
+            {showOpenTimes()}
+          </ul>
           EstablishmentPage name, address, hours of op, distance from visitor,
           num reviews, photo
         </div>

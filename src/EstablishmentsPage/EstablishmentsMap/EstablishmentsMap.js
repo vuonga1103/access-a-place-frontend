@@ -8,6 +8,7 @@ export default function EstablishmentsMap() {
   const establishments = useSelector(
     (state) => state.establishmentInformation.establishments
   );
+  const loaded = useSelector((state) => state.establishmentInformation.loaded);
 
   const selectedEstablishment = useSelector(
     (state) => state.establishmentInformation.selectedEstablishment
@@ -94,7 +95,7 @@ export default function EstablishmentsMap() {
     }
   };
 
-  if (!establishments.length) return <></>;
+  if (!loaded) return <></>;
 
   return (
     <div className={styles.container}>
