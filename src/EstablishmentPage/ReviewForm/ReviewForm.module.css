@@ -2,10 +2,6 @@
   margin-top: 2rem;
 }
 
-.container h6 {
-  margin-top: -1rem;
-}
-
 .ratings {
   margin-top: -1rem;
   width: 115px;
@@ -41,10 +37,15 @@
 }
 
 :global(.button.is-primary).submit {
+  border: none;
   margin-top: 1rem;
   background-color: #6103d3;
 }
 
 :global(.button.is-primary).submit:hover {
   background-color: #6b02eb;
+}
+
+:global(.button.is-primary).submit:focus:not(:active) {
+  box-shadow: none;
 }

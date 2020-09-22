@@ -2,17 +2,3 @@
   height: 100vh;
   overflow-y: auto;
 }
-
-.loading-icon {
-  position: absolute;
-  left: 35%;
-}
-
-.loading-icon img {
-  width: 500px;
-}
-
-:global(.title.is-6).finding {
-  position: absolute;
-  left: 45%;
-}

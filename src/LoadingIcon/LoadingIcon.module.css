@@ -1,0 +1,11 @@
+.loading-icon {
+  margin-left: 43%;
+}
+
+.loading-icon img {
+  width: 300px;
+}
+
+:global(.title.is-6).loading-text {
+  margin-left: 50%;
+}

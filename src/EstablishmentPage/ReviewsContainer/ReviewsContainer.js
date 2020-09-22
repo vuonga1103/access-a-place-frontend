@@ -1,11 +1,17 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import Review from "./Review/Review";
 import styles from "./ReviewsContainer.module.css";
 
-export default function ReviewsContainer({ establishment }) {
+export default function ReviewsContainer() {
+  const establishment = useSelector(
+    (state) => state.establishmentInformation.currentEstablishment
+  );
+
   if (!establishment) return <></>;
 
   const showReviews = () => {
+    console.log(establishment);
     if (establishment.reviews.length) {
       return establishment.reviews.map((r) => {
         return <Review key={r.id} review={r} />;

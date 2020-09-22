@@ -9,9 +9,14 @@ import moment from "moment";
 import BusinessRating from "../EstablishmentsPage/EstablishmentsContainer/EstablishmentCard/BusinessRating/BusinessRating";
 import ReactMapGL, { Marker } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
+import { useDispatch, useSelector } from "react-redux";
+import LoadingIcon from "../LoadingIcon/LoadingIcon";
 
 export default function EstablishmentPage() {
-  const [establishment, setEstablishment] = useState(null);
+  const dispatch = useDispatch();
+  const establishment = useSelector(
+    (state) => state.establishmentInformation.currentEstablishment
+  );
 
   const [viewport, setViewport] = useState({
     width: "100%",
@@ -22,10 +27,11 @@ export default function EstablishmentPage() {
   });
 
   const history = useHistory();
-
   const params = useParams();
 
   useEffect(() => {
+    dispatch({ type: "SET_CURRENT_ESTABLISHMENT", payload: null });
+
     fetchEstablishment();
   }, []);
 
@@ -46,7 +52,10 @@ export default function EstablishmentPage() {
           alert("Establishment not found!");
           history.push("/");
         } else {
-          setEstablishment(establishment);
+          dispatch({
+            type: "SET_CURRENT_ESTABLISHMENT",
+            payload: establishment,
+          });
           setViewport({
             ...viewport,
             latitude: establishment.coordinates.latitude,
@@ -80,9 +89,8 @@ export default function EstablishmentPage() {
       });
     }
   };
-  console.log(establishment);
 
-  if (!establishment) return <></>;
+  if (!establishment) return <LoadingIcon />;
 
   const showOpenTimes = () => {
     if (establishment.hours[0]) {
@@ -227,8 +235,7 @@ export default function EstablishmentPage() {
         </Marker>
       </ReactMapGL>
 
-      <ReviewsContainer establishment={establishment} />
-      {/* Only if the user is logged in, display ReviewForm!!!! */}
+      <ReviewsContainer />
       <ReviewForm />
     </div>
   );

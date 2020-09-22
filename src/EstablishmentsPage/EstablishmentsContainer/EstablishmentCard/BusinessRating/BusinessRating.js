@@ -29,6 +29,7 @@ export default function BusinessRating(props) {
         fractions={2}
         readonly={!props.write && true}
         initialRating={props.rating}
+        onClick={(value) => props.handleRatingChange(value, props.icon)}
       />
     </div>
   );

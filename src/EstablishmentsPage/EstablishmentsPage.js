@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import EstablishmentsContainer from "./EstablishmentsContainer/EstablishmentsContainer";
 import EstablishmentsMap from "./EstablishmentsMap/EstablishmentsMap";
 import queryString from "query-string";
 import { useHistory, useLocation } from "react-router-dom";
 import styles from "./EstablishmentsPage.module.css";
+import LoadingIcon from "../LoadingIcon/LoadingIcon";
 
 export default function EstablishmentsPage() {
   const dispatch = useDispatch();
@@ -16,6 +17,12 @@ export default function EstablishmentsPage() {
   const locationParam = params.get("find_loc");
   const search = { term: termParam, location: locationParam };
 
+  const establishments = useSelector(
+    (state) => state.establishmentInformation.establishments
+  );
+
+  const loaded = useSelector((state) => state.establishmentInformation.loaded);
+
   useEffect(() => {
     dispatch({ type: "CLEAR_ESTABLISHMENTS" });
 
@@ -25,13 +32,15 @@ export default function EstablishmentsPage() {
       dispatch({ type: "SET_SELECTED_ESTABLISHMENT", payload: null });
       dispatch({ type: "SET_NOT_LOADED" });
     };
-  });
+  }, []);
 
   const fetchEstablishments = () => {
     // If no term or location is input in the URL search params, then take user back to home
     if (!termParam || !locationParam) {
       return history.push("/");
     }
+
+    console.log("fetch hit");
 
     const query = queryString.stringify(search);
 
@@ -51,6 +60,18 @@ export default function EstablishmentsPage() {
         dispatch({ type: "SET_LOADED" });
       });
   };
+
+  if (!loaded) {
+    return <LoadingIcon />;
+  }
+
+  if (loaded && !establishments.length) {
+    return (
+      <h6 className="title is-6">
+        No Results Found. Please try another search.
+      </h6>
+    );
+  }
 
   return (
     <div className={styles.container}>

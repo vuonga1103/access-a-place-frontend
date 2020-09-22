@@ -57,7 +57,7 @@ export default function NavBar(props) {
           <div className="navbar-item">About</div>
 
           <div className="navbar-item">
-            {location.pathname === "/search" && <SearchBar small />}
+            {location.pathname !== "/" && <SearchBar small />}
           </div>
           {/* <div className="navbar-item has-dropdown is-hoverable">
             <div className="navbar-link">More</div>

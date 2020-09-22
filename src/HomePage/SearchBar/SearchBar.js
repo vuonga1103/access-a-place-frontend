@@ -7,11 +7,9 @@ export default function SearchBar(props) {
   const location = useLocation();
   const dispatch = useDispatch();
 
-  let initialSearchState;
+  let initialSearchState = { term: "", location: "" };
 
-  if (location.pathname === "/") {
-    initialSearchState = { term: "", location: "" };
-  } else if (location.search) {
+  if (location.search) {
     const params = new URLSearchParams(location.search);
     const termParam = params.get("find_desc");
     const locationParam = params.get("find_loc");
@@ -42,6 +40,9 @@ export default function SearchBar(props) {
       history.push(
         `/search?find_desc=${urlEncodedTerm}&find_loc=${urlEncodedLocation}`
       );
+
+      //causes page refresh
+      history.go(0);
     }
   };
 
