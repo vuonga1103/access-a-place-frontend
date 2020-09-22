@@ -13,7 +13,6 @@
 .heading-container {
   display: flex;
   justify-content: space-between;
-  /* flex-wrap: wrap; */
 }
 
 .heading-container div {

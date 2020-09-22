@@ -1,0 +1,50 @@
+.container {
+  margin-top: 2rem;
+}
+
+.container h6 {
+  margin-top: -1rem;
+}
+
+.ratings {
+  margin-top: -1rem;
+  width: 115px;
+}
+
+.reviews {
+  margin-top: -0.5rem;
+  background-color: #eee7fa;
+  padding: 2rem 1rem 1rem;
+  border-radius: 10px;
+}
+
+.ratings-and-comments {
+  display: flex;
+  justify-content: space-around;
+}
+
+.comment {
+  margin-left: 2rem;
+}
+
+.comment p {
+  margin-top: -1rem;
+}
+
+.comment p li {
+  margin-bottom: -0.3rem;
+}
+
+.comment-form {
+  margin: 1rem;
+  text-align: center;
+}
+
+:global(.button.is-primary).submit {
+  margin-top: 1rem;
+  background-color: #6103d3;
+}
+
+:global(.button.is-primary).submit:hover {
+  background-color: #6b02eb;
+}

@@ -27,7 +27,7 @@ export default function BusinessRating(props) {
         emptySymbol="far fa-star"
         fullSymbol="fas fa-star"
         fractions={2}
-        readonly
+        readonly={!props.write && true}
         initialRating={props.rating}
       />
     </div>

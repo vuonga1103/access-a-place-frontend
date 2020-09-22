@@ -1,3 +1,7 @@
 .container {
   margin-top: 1rem;
 }
+
+.no-reviews {
+  margin-top: -20px;
+}
