@@ -11,18 +11,20 @@ export default function ReviewsContainer() {
   if (!establishment) return <></>;
 
   const showReviews = () => {
-    console.log(establishment);
     if (establishment.reviews.length) {
-      return establishment.reviews.map((r) => {
+      const reviews = establishment.reviews.map((r) => {
         return <Review key={r.id} review={r} />;
       });
+
+      return <div className={styles.reviews}>{reviews}</div>;
+    } else {
+      return (
+        <div className={styles["no-reviews"]}>
+          No accessibility reviews available for this establishment yet. Be the
+          first to review this place!
+        </div>
+      );
     }
-    return (
-      <div className={styles["no-reviews"]}>
-        No accessibility reviews available for this establishment yet. Be the
-        first to review this place!
-      </div>
-    );
   };
 
   return (

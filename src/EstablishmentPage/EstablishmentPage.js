@@ -11,6 +11,7 @@ import ReactMapGL, { Marker } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { useDispatch, useSelector } from "react-redux";
 import LoadingIcon from "../LoadingIcon/LoadingIcon";
+import { Link, animateScroll as scroll } from "react-scroll";
 
 export default function EstablishmentPage() {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ export default function EstablishmentPage() {
 
   const history = useHistory();
   const params = useParams();
+  const slug = params.slug;
 
   useEffect(() => {
     dispatch({ type: "SET_CURRENT_ESTABLISHMENT", payload: null });
@@ -36,8 +38,6 @@ export default function EstablishmentPage() {
   }, []);
 
   const fetchEstablishment = () => {
-    const slug = params.slug;
-
     fetch("http://localhost:4000/yelp-establishment", {
       method: "POST",
       headers: {
@@ -135,6 +135,10 @@ export default function EstablishmentPage() {
           <h2 className={`title is-2 ${styles.name}`}>{establishment.name}</h2>
           <div>
             {establishment.categories.join(", ")} {showIsOpenOrClosed()}
+            <br />
+            <Link to="write-review" smooth={true}>
+              <i className="fas fa-pen-alt"></i> Write Accessibility Review!
+            </Link>
           </div>
         </div>
 
@@ -236,7 +240,9 @@ export default function EstablishmentPage() {
       </ReactMapGL>
 
       <ReviewsContainer />
-      <ReviewForm />
+      <div id="write-review">
+        <ReviewForm />
+      </div>
     </div>
   );
 }

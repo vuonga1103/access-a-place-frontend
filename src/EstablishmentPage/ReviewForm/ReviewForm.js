@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
 import BusinessRating from "../../EstablishmentsPage/EstablishmentsContainer/EstablishmentCard/BusinessRating/BusinessRating";
 import styles from "./ReviewForm.module.css";
 
@@ -49,6 +48,8 @@ export default function ReviewForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    if (!review.content) return alert("Please enter a review!");
+
     fetch("http://localhost:4000/reviews", {
       method: "POST",
       headers: {
@@ -73,7 +74,7 @@ export default function ReviewForm() {
 
   return (
     <div className={styles.container}>
-      <h4 className="title is-4">Submit a Review</h4>
+      <h4 className="title is-4">Write a Review</h4>
 
       {loggedIn ? (
         <div className={styles.reviews}>
@@ -153,7 +154,6 @@ export default function ReviewForm() {
                       placeholder="Write your review here..."
                       value={review.content}
                       onChange={handleCommentChange}
-                      required
                     ></textarea>
                   </div>
                   <div className="control">
