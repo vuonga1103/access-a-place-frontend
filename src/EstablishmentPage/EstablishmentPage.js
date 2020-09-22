@@ -6,9 +6,21 @@ import styles from "./EstablishmentPage.module.css";
 import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
 import moment from "moment";
+import BusinessRating from "../EstablishmentsPage/EstablishmentsContainer/EstablishmentCard/BusinessRating/BusinessRating";
+import ReactMapGL, { Marker } from "react-map-gl";
+import "mapbox-gl/dist/mapbox-gl.css";
 
 export default function EstablishmentPage() {
   const [establishment, setEstablishment] = useState(null);
+
+  const [viewport, setViewport] = useState({
+    width: "100%",
+    height: "200px",
+    latitude: 0,
+    longitude: 0,
+    zoom: 13,
+  });
+
   const history = useHistory();
 
   const params = useParams();
@@ -35,12 +47,27 @@ export default function EstablishmentPage() {
           history.push("/");
         } else {
           setEstablishment(establishment);
+          setViewport({
+            ...viewport,
+            latitude: establishment.coordinates.latitude,
+            longitude: establishment.coordinates.longitude,
+          });
         }
       });
   };
 
   const showEstablishmentImages = () => {
     if (establishment) {
+      if (!establishment.photos.length) {
+        return [
+          <img
+            src="https://tacm.com/wp-content/uploads/2018/01/no-image-available.jpeg"
+            alt="none"
+            className={styles.sliderimg}
+          />,
+        ];
+      }
+
       return establishment.photos.map((url) => {
         return (
           <img
@@ -53,39 +80,64 @@ export default function EstablishmentPage() {
       });
     }
   };
+  console.log(establishment);
 
   if (!establishment) return <></>;
 
   const showOpenTimes = () => {
-    if (establishment) {
+    if (establishment.hours[0]) {
       return establishment.hours[0]["open"].map((dayObj) => {
-        const dayOfWeek = moment().day(dayObj.day).format("dddd");
-        let openTime = moment(dayObj.start, "HH:mm").format("hh:mm");
-        let closeTime = moment(dayObj.end, "HH:mm").format("hh:mm");
+        const dayOfWeek = moment().day(dayObj.day).format("ddd");
+        let openTime = moment(dayObj.start, "HH:mm").format("hh:mma");
+        let closeTime = moment(dayObj.end, "HH:mm").format("hh:mma");
 
         openTime = openTime[0] === "0" ? openTime.slice(1) : openTime;
         closeTime = closeTime[0] === "0" ? closeTime.slice(1) : closeTime;
 
         return (
-          <li key={dayOfWeek}>
-            <strong>{`${dayOfWeek}: `}</strong>
-            {` ${openTime} - ${closeTime}`}
+          <li key={establishment.name + dayOfWeek}>
+            <div>
+              <strong>{`${dayOfWeek}: `}</strong>
+            </div>
+            <div>{` ${openTime} - ${closeTime}`}</div>
           </li>
         );
       });
     }
   };
 
+  const showIsOpenOrClosed = () => {
+    if (establishment.hours[0]) {
+      return establishment.hours[0]["is_open_now"] ? (
+        <span>
+          <i className="fas fa-door-open"></i> <strong>Open Now!</strong>
+        </span>
+      ) : (
+        <span>
+          <i className="fas fa-door-closed"></i> <strong>Closed Now</strong>
+        </span>
+      );
+    }
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles["heading-container"]}>
-        <h2 className={`title is-2 ${styles.name}`}>{establishment.name}</h2>
+        <div>
+          <h2 className={`title is-2 ${styles.name}`}>{establishment.name}</h2>
+          <div>
+            {establishment.categories.join(", ")} {showIsOpenOrClosed()}
+          </div>
+        </div>
 
-        <h4 className={`subtitle ${styles.address}`}>
-          {establishment.location[0]} <br /> {establishment.location[1]} <br />
-          {establishment.phone}
-          <br />
-        </h4>
+        <div>
+          <h4 className={`subtitle ${styles.address}`}>
+            {establishment.location[0]} <br /> {establishment.location[1]}{" "}
+            <br />
+            {establishment.phone}
+            <br />
+          </h4>
+        </div>
       </div>
 
       <div className={styles["body-container"]}>
@@ -96,29 +148,86 @@ export default function EstablishmentPage() {
         </div>
 
         <div className={styles["info"]}>
-          <ul>
+          <div className={styles["ratings-container"]}>
+            <strong>
+              <u>Accessibility Ratings</u>
+            </strong>
+            <table>
+              <tbody>
+                <tr>
+                  <td>Overall: </td>
+                  <td>
+                    <BusinessRating rating={establishment.average_overall} />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Parking: </td>
+                  <td>
+                    <BusinessRating
+                      rating={establishment.average_parking}
+                      icon="parking"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Entrance: </td>
+                  <td>
+                    <BusinessRating
+                      rating={establishment.average_entrance}
+                      icon="entrance"
+                    />
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Interior: </td>
+                  <td>
+                    <BusinessRating
+                      rating={establishment.average_interior}
+                      icon="interior"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Bathroom:</td>
+                  <td>
+                    <BusinessRating
+                      rating={establishment.average_bathroom}
+                      icon="bathroom"
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <ul className={styles["hours-container"]}>
             <li>
-              <strong>Categories: </strong>
-              {establishment.categories.join(", ")}
+              {establishment.hours[0] && (
+                <u>
+                  <strong>Hours of Operation</strong>
+                </u>
+              )}
             </li>
-            {establishment.hours[0]["is_open_now"] ? (
-              <li>
-                <i className="fas fa-door-open"></i> <strong>Open Now!</strong>
-              </li>
-            ) : (
-              <li>
-                <i className="fas fa-door-closed"></i>{" "}
-                <strong>Closed Now</strong>
-              </li>
-            )}
             {showOpenTimes()}
           </ul>
-          EstablishmentPage name, address, hours of op, distance from visitor,
-          num reviews, photo
         </div>
       </div>
 
-      <ReviewsContainer />
+      <ReactMapGL
+        {...viewport}
+        mapStyle="mapbox://styles/mapbox/outdoors-v11"
+        onViewportChange={(viewport) => setViewport(viewport)}
+        mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_API_KEY}
+      >
+        <Marker
+          latitude={establishment.coordinates.latitude}
+          longitude={establishment.coordinates.longitude}
+        >
+          <i className="fas fa-map-marker-alt fa-2x"></i>
+        </Marker>
+      </ReactMapGL>
+
+      <ReviewsContainer establishment={establishment} />
       {/* Only if the user is logged in, display ReviewForm!!!! */}
       <ReviewForm />
     </div>

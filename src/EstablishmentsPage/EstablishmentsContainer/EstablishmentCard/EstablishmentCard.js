@@ -31,7 +31,9 @@ export default function EstablishmentCard({ establishment }) {
           <Link to={`/establishment/${alias}`}>{name}</Link>
         </h2>
         <p>{categories.join(", ")}</p>
-        <BusinessRating rating={average_overall} />
+        <div className={styles.rating}>
+          <BusinessRating rating={average_overall} />
+        </div>
       </div>
       <div className={styles["contact-info"]}>
         <p>

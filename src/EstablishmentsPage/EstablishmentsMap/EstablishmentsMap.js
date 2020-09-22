@@ -3,6 +3,7 @@ import styles from "./EstablishmentsMap.module.css";
 import ReactMapGL, { Marker, Popup } from "react-map-gl";
 import { useDispatch, useSelector } from "react-redux";
 import BusinessRating from "../EstablishmentsContainer/EstablishmentCard/BusinessRating/BusinessRating";
+import "mapbox-gl/dist/mapbox-gl.css";
 
 export default function EstablishmentsMap() {
   const establishments = useSelector(
@@ -95,7 +96,7 @@ export default function EstablishmentsMap() {
     }
   };
 
-  if (!loaded) return <></>;
+  if (!establishments.length) return <></>;
 
   return (
     <div className={styles.container}>

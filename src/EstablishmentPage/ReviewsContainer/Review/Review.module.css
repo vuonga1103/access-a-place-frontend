@@ -1,0 +1,39 @@
+.container {
+  display: flex;
+  width: 80%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.user {
+  flex: 1;
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+}
+
+.user img {
+  width: 75px;
+  border-radius: 5px;
+}
+
+.content {
+  flex: 4;
+  background-color: #eae2f5;
+  padding: 0.8rem;
+  border-radius: 10px;
+}
+
+.ratings {
+  display: flex;
+  justify-content: space-around;
+}
+
+.ratings td {
+  padding-right: 0.5rem;
+}
+
+.comment hr {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}

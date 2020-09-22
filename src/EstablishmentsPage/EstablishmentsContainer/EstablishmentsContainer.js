@@ -1,11 +1,10 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import EstablishmentCard from "./EstablishmentCard/EstablishmentCard";
 import styles from "./EstablishmentsContainer.module.css";
 import loadingIcon from "../../assets/loading.gif";
 
 export default function EstablishmentsContainer() {
-  const dispatch = useDispatch();
   const establishments = useSelector(
     (state) => state.establishmentInformation.establishments
   );

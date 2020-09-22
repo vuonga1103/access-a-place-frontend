@@ -28,6 +28,10 @@
   margin-top: -1.5rem;
 }
 
+.business-info .rating {
+  width: 38%;
+}
+
 .contact-info p {
   margin-top: 1rem;
   font-size: 1rem;

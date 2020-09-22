@@ -17,10 +17,13 @@ export default function EstablishmentsPage() {
   const search = { term: termParam, location: locationParam };
 
   useEffect(() => {
+    dispatch({ type: "CLEAR_ESTABLISHMENTS" });
+
     fetchEstablishments();
 
     return () => {
       dispatch({ type: "SET_SELECTED_ESTABLISHMENT", payload: null });
+      dispatch({ type: "SET_NOT_LOADED" });
     };
   });
 
