@@ -15,7 +15,7 @@ export default function EstablishmentsPage() {
   const params = new URLSearchParams(location.search);
   const termParam = params.get("find_desc");
   const locationParam = params.get("find_loc");
-  const search = { term: termParam, location: locationParam };
+  let search = { term: termParam, location: locationParam };
 
   const establishments = useSelector(
     (state) => state.establishmentInformation.establishments
@@ -40,7 +40,13 @@ export default function EstablishmentsPage() {
       return history.push("/");
     }
 
-    console.log("fetch hit");
+    if (search.location === "NEAR ME") {
+      search = {
+        term: termParam,
+        longitude: localStorage.longitude,
+        latitude: localStorage.latitude,
+      };
+    }
 
     const query = queryString.stringify(search);
 
@@ -61,26 +67,24 @@ export default function EstablishmentsPage() {
       });
   };
 
-  if (!loaded) {
-    return <LoadingIcon />;
-  }
-
-  if (loaded && !establishments.length) {
-    return (
-      <h6 className="title is-6">
-        No Results Found. Please try another search.
-      </h6>
-    );
-  }
+  if (!loaded) return <LoadingIcon />;
 
   return (
     <div className={styles.container}>
-      <div className={styles.establishments}>
-        <EstablishmentsContainer />
-      </div>
-      <div className={styles.map}>
-        <EstablishmentsMap />
-      </div>
+      {loaded && !establishments.length ? (
+        <h6 className="title is-6">
+          Sorry! No results were found. Please try another search.
+        </h6>
+      ) : (
+        <>
+          <div className={styles.establishments}>
+            <EstablishmentsContainer />
+          </div>
+          <div className={styles.map}>
+            <EstablishmentsMap />
+          </div>
+        </>
+      )}
     </div>
   );
 }

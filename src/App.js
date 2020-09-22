@@ -41,10 +41,8 @@ function App() {
       const longitude = position.coords.longitude;
       const latitude = position.coords.latitude;
 
-      dispatch({
-        type: "SET_CURRENT_LOCATION",
-        payload: { longitude, latitude },
-      });
+      localStorage.longitude = longitude;
+      localStorage.latitude = latitude;
     });
   };
 

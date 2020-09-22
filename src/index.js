@@ -28,11 +28,6 @@ const userInitialState = {
   reviews: [],
 };
 
-const currentLocationInitialState = {
-  longitude: 0,
-  latitude: 0,
-};
-
 const establishmentReducer = (state = establishmentInitialState, action) => {
   switch (action.type) {
     case "SET_ESTABLISHMENTS":
@@ -80,22 +75,9 @@ const userReducer = (state = userInitialState, action) => {
   }
 };
 
-const currentLocationReducer = (
-  state = currentLocationInitialState,
-  action
-) => {
-  switch (action.type) {
-    case "SET_CURRENT_LOCATION":
-      return { ...state, ...action.payload };
-    default:
-      return state;
-  }
-};
-
 const rootReducer = combineReducers({
   establishmentInformation: establishmentReducer,
   userInformation: userReducer,
-  currentLocationInformation: currentLocationReducer,
 });
 
 const storeObject = createStore(

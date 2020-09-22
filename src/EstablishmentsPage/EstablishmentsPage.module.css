@@ -2,6 +2,12 @@
   display: flex;
 }
 
+.container :global(.title.is-6) {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2rem;
+}
+
 .establishments {
   margin: 2rem;
   width: 60%;

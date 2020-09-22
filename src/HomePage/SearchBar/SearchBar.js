@@ -7,7 +7,7 @@ export default function SearchBar(props) {
   const location = useLocation();
   const dispatch = useDispatch();
 
-  let initialSearchState = { term: "", location: "" };
+  let initialSearchState = { term: "", location: "NEAR ME" };
 
   if (location.search) {
     const params = new URLSearchParams(location.search);
@@ -15,7 +15,7 @@ export default function SearchBar(props) {
     const locationParam = params.get("find_loc");
     initialSearchState = {
       term: termParam || "",
-      location: locationParam || "",
+      location: locationParam || "NEAR ME",
     };
   }
 
