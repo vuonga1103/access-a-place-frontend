@@ -19,6 +19,8 @@ function App() {
     if (localStorage.token) {
       persistLoggedInUser();
     }
+
+    getUsersLocation();
   });
 
   const persistLoggedInUser = () => {
@@ -32,6 +34,18 @@ function App() {
         dispatch({ type: "SET_USER_INFORMATION", payload: result });
         localStorage.token = result.token;
       });
+  };
+
+  const getUsersLocation = () => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const longitude = position.coords.longitude;
+      const latitude = position.coords.latitude;
+
+      dispatch({
+        type: "SET_CURRENT_LOCATION",
+        payload: { longitude, latitude },
+      });
+    });
   };
 
   return (
