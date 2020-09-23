@@ -1,5 +1,5 @@
 import React from "react";
-import BusinessRating from "../../../EstablishmentsPage/EstablishmentsContainer/EstablishmentCard/BusinessRating/BusinessRating";
+import BusinessRating from "../../../BusinessRating/BusinessRating";
 import styles from "./Review.module.css";
 import profile from "../../../assets/profile.png";
 

@@ -6,12 +6,13 @@ import styles from "./EstablishmentPage.module.css";
 import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
 import moment from "moment";
-import BusinessRating from "../EstablishmentsPage/EstablishmentsContainer/EstablishmentCard/BusinessRating/BusinessRating";
+import BusinessRating from "../BusinessRating/BusinessRating";
 import ReactMapGL, { Marker } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { useDispatch, useSelector } from "react-redux";
 import LoadingIcon from "../LoadingIcon/LoadingIcon";
-import { Link, animateScroll as scroll } from "react-scroll";
+import { Link } from "react-scroll";
+import selectedMarker from "../assets/selectedMarker.png";
 
 export default function EstablishmentPage() {
   const dispatch = useDispatch();
@@ -235,7 +236,11 @@ export default function EstablishmentPage() {
           latitude={establishment.coordinates.latitude}
           longitude={establishment.coordinates.longitude}
         >
-          <i className="fas fa-map-marker-alt fa-2x"></i>
+          <img
+            src={selectedMarker}
+            alt="map-marker"
+            className={styles.marker}
+          />
         </Marker>
       </ReactMapGL>
 

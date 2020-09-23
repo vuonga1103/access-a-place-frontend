@@ -23,3 +23,7 @@
   object-fit: cover;
   margin-bottom: 0.5rem;
 }
+
+.marker {
+  width: 35px;
+}

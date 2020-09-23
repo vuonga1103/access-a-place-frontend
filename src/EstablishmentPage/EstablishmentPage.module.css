@@ -76,16 +76,13 @@
 }
 
 :global(div.alice-carousel__prev-btn) {
-  /* padding-top: 0;
-  margin-top: 0;
-  margin-left: -10px; */
   display: none;
 }
 
 :global(div.alice-carousel__next-btn) {
-  /* padding-top: 0;
-  margin-top: 0;
-  padding-left: 3px;
-  margin-left: 10px; */
   display: none;
+}
+
+.marker {
+  width: 40px;
 }

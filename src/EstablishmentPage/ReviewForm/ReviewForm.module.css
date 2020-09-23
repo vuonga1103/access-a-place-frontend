@@ -49,3 +49,7 @@
 :global(.button.is-primary).submit:focus:not(:active) {
   box-shadow: none;
 }
+
+.login {
+  margin-top: -1.5rem;
+}

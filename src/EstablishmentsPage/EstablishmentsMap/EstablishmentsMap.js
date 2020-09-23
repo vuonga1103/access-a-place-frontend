@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import styles from "./EstablishmentsMap.module.css";
 import ReactMapGL, { Marker, Popup } from "react-map-gl";
 import { useDispatch, useSelector } from "react-redux";
-import BusinessRating from "../EstablishmentsContainer/EstablishmentCard/BusinessRating/BusinessRating";
+import BusinessRating from "../../BusinessRating/BusinessRating";
 import "mapbox-gl/dist/mapbox-gl.css";
+import selectedMarker from "../../assets/selectedMarker.png";
+import unselectedMarker from "../../assets/unselectedMarker.png";
 
 export default function EstablishmentsMap() {
   const establishments = useSelector(
@@ -36,11 +38,6 @@ export default function EstablishmentsMap() {
   const showEstablishmentMarkers = () => {
     if (establishments.length) {
       return establishments.map((est) => {
-        // const markerColor =
-        //   selectedEstablishment && selectedEstablishment === est
-        //     ? { color: "blue" }
-        //     : { color: "black" };
-
         return (
           <Marker
             key={est.id}
@@ -52,13 +49,15 @@ export default function EstablishmentsMap() {
                 dispatch({ type: "SET_SELECTED_ESTABLISHMENT", payload: est })
               }
             >
-              <i
-                className="fas fa-map-marker-alt fa-2x"
-                // style={markerColor}
-              ></i>
-              {/* {selectedEstablishment &&
-                selectedEstablishment.id === est.id &&
-                "hello"} */}
+              <img
+                src={
+                  selectedEstablishment && selectedEstablishment === est
+                    ? selectedMarker
+                    : unselectedMarker
+                }
+                alt="map-marker"
+                className={styles.marker}
+              />
             </div>
           </Marker>
         );

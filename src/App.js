@@ -10,6 +10,7 @@ import LoginPage from "./LoginPage/LoginPage";
 import NavBar from "./NavBar/NavBar";
 import NotFoundPage from "./NotFoundPage/NotFoundPage";
 import RegisterPage from "./RegisterPage/RegisterPage";
+import AboutPage from "./AboutPage/AboutPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -54,6 +55,8 @@ function App() {
         <Route path="/establishment/:slug" component={EstablishmentPage} />
 
         <Route path="/search" exact component={EstablishmentsPage} />
+
+        <Route path="/about" exact component={AboutPage} />
 
         <Route path="/register" exact>
           {loggedIn ? <Redirect to="/" /> : <RegisterPage />}

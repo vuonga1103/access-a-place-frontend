@@ -72,7 +72,7 @@ export default function EstablishmentsPage() {
   return (
     <div className={styles.container}>
       {loaded && !establishments.length ? (
-        <h6 className="title is-6">
+        <h6 className={`title is-6 ${styles["not-found"]}`}>
           Sorry! No results were found. Please try another search.
         </h6>
       ) : (

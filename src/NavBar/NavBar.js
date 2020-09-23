@@ -54,7 +54,9 @@ export default function NavBar(props) {
             <Link to="/">Home</Link>
           </div>
 
-          <div className="navbar-item">About</div>
+          <div className="navbar-item">
+            <Link to="/about">About</Link>
+          </div>
 
           <div className="navbar-item">
             {location.pathname !== "/" && <SearchBar small />}
@@ -80,11 +82,11 @@ export default function NavBar(props) {
                   <div
                     className={`button is-primary ${styles["signup-button"]}`}
                   >
-                    <strong>Sign up</strong>
+                    <strong>Sign Up</strong>
                   </div>
                 </Link>
                 <Link to="/login">
-                  <div className="button is-light">Log in</div>
+                  <div className="button is-light">Log In</div>
                 </Link>
               </div>
             </div>

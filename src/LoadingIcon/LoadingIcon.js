@@ -12,7 +12,7 @@ export default function LoadingIcon() {
         />
         <br />
       </div>
-      <h6 className={`title is-6 ${styles["loading-text"]}`}>Loading..</h6>
+      <h6 className={`title is-6 ${styles["loading-text"]}`}>Loading...</h6>
     </>
   );
 }

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import BusinessRating from "../../EstablishmentsPage/EstablishmentsContainer/EstablishmentCard/BusinessRating/BusinessRating";
+import { Link } from "react-router-dom";
+import BusinessRating from "../../BusinessRating/BusinessRating";
 import styles from "./ReviewForm.module.css";
 
 export default function ReviewForm() {
@@ -174,7 +175,9 @@ export default function ReviewForm() {
           </p>
         </div>
       ) : (
-        "Please log in to submit a review."
+        <div className={styles.login}>
+          Please <Link to="/login">log in</Link> to submit a review.
+        </div>
       )}
     </div>
   );

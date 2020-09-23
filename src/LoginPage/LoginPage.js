@@ -43,7 +43,7 @@ const LoginPage = (props) => {
         type: "SET_USER_INFORMATION",
         payload: resp,
       });
-      history.push("/");
+      history.go(-1);
     }
   };
 
