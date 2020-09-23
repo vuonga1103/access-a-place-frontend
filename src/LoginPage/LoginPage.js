@@ -27,6 +27,19 @@ const LoginPage = (props) => {
       .then((result) => handleResponse(result));
   };
 
+  // const handleGoogleLogin = () => {
+  //   fetch("http://localhost:4000/oauth")
+  //     .then((response) => response.json())
+  //     .then((result) => {
+  //       // custom error
+  //       console.log(result);
+  //     })
+  //     .catch((error) => {
+  //       // common error
+  //       return null;
+  //     });
+  // };
+
   const handleChange = (e) => {
     setForm({
       ...form,

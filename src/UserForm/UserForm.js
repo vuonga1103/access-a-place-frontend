@@ -95,6 +95,11 @@ export default function UserForm(props) {
           </button>
         </div>
       </form>
+
+      {/* <button className="button" onClick={handleGoogleLogin}>
+        Log In With Google
+      </button> */}
+      <a href="http://localhost:4000/auth/google_oauth2">Log in with google</a>
     </div>
   );
 }
