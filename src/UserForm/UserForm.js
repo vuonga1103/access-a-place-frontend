@@ -1,48 +1,25 @@
 import React from "react";
-import ReactFacebookLogin from "react-facebook-login";
-import GoogleLogin from "react-google-login";
+
+import { GoogleAPI, GoogleLogin } from "react-google-oauth";
 
 import styles from "./UserForm.module.css";
 
 export default function UserForm(props) {
   const { handleSubmit, handleChange, handleResponse } = props;
 
-  const responseGoogle = (response) => {
-    const { givenName, familyName, email, imageUrl } = response.profileObj;
-    const userObj = {
-      first_name: givenName || "",
-      last_name: familyName || "",
-      email: email,
-      image_url: imageUrl || "",
-    };
-    postOauthUser(userObj);
-  };
-
-  const responseGoogleFailure = (response) => {
-    console.log("Log in unsuccessful. Please try again.");
-  };
-
-  const responseFacebook = (response) => {
-    debugger;
-    const { name, email, picture } = response;
-    const userObj = {
-      first_name: name.substring(0, name.lastIndexOf(" ")) || "",
-      last_name: name.substring(name.lastIndexOf(" ") + 1, name.length) || "",
-      email: email,
-      image_url: picture.data.url || "",
-    };
-    postOauthUser(userObj);
-  };
-
-  const postOauthUser = (userObj) => {
-    fetch("http://localhost:4000/oauth-login", {
+  const responseGoogle = (google_response) => {
+    const token = google_response.wc;
+    const requestOptions = {
       method: "POST",
       headers: {
-        Accept: "application/json",
+        Authorization: `Bearer ${google_response.wc.access_token}`,
         "Content-Type": "application/json",
+        access_token: `${google_response.wc.access_token}`,
       },
-      body: JSON.stringify(userObj),
-    })
+      body: JSON.stringify(token),
+    };
+
+    return fetch("http://localhost:4000/auth/request", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         handleResponse(result);
@@ -141,31 +118,24 @@ export default function UserForm(props) {
         </div>
       </form>
       <div className={styles["oauth-login-container"]}>
-        <h5 className="subtitle is-5">
-          {props.register ? "Register" : "Log in "} with your Google or Facebook
-          account
-        </h5>
-
-        <div className={styles.buttons}>
-          <div className={styles["google-btn"]}>
+        {" "}
+        <GoogleAPI
+          className="GoogleLogin"
+          clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+        >
+          <div>
             <GoogleLogin
-              clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
-              buttonText="Log In With Google"
-              onSuccess={responseGoogle}
-              onFailure={responseGoogleFailure}
-              cookiePolicy={"single_host_origin"}
-              responseType="code,token"
+              height="10"
+              width="200px"
+              text="Google Login"
+              backgroundColor="#4285f4"
+              access="offline"
+              scope="email profile"
+              onLoginSuccess={responseGoogle}
+              onFailure={responseGoogle}
             />
           </div>
-
-          <div className={styles["fb-btn"]}>
-            <ReactFacebookLogin
-              appId={process.env.REACT_APP_FACEBOOK_APP_ID}
-              fields="name,email,picture"
-              callback={responseFacebook}
-            />{" "}
-          </div>
-        </div>
+        </GoogleAPI>
       </div>
     </div>
   );
