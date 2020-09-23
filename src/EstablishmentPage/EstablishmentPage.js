@@ -71,6 +71,7 @@ export default function EstablishmentPage() {
       if (!establishment.photos.length) {
         return [
           <img
+            key="img"
             src="https://tacm.com/wp-content/uploads/2018/01/no-image-available.jpeg"
             alt="none"
             className={styles.sliderimg}

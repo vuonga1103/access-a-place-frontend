@@ -25,6 +25,7 @@ const userInitialState = {
   first_name: "",
   last_name: "",
   email: "",
+  image_url: "",
   reviews: [],
 };
 
@@ -56,7 +57,14 @@ const establishmentReducer = (state = establishmentInitialState, action) => {
 const userReducer = (state = userInitialState, action) => {
   switch (action.type) {
     case "SET_USER_INFORMATION":
-      const { id, first_name, last_name, email, reviews } = action.payload.user;
+      const {
+        id,
+        first_name,
+        last_name,
+        email,
+        reviews,
+        image_url,
+      } = action.payload.user;
 
       return {
         ...state,
@@ -65,6 +73,7 @@ const userReducer = (state = userInitialState, action) => {
         last_name,
         email,
         reviews,
+        image_url,
         token: action.payload.token,
       };
 

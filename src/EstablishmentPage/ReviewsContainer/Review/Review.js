@@ -8,7 +8,10 @@ export default function Review({ review }) {
     <div className={styles.container}>
       <div className={styles.user}>
         <div>
-          <img src={profile} alt="user profile" />
+          <img
+            src={review.user.image_url ? review.user.image_url : profile}
+            alt="user profile"
+          />
           <br />
           {review.user.first_name} {review.user.last_name[0]}.
           <br />

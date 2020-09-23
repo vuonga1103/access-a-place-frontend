@@ -22,6 +22,15 @@
   background-color: #6b02eb;
 }
 
-.google-login {
+.oauth-login-container {
   margin-top: 2.5rem;
+  margin-bottom: 4rem;
+}
+
+.oauth-login-container .google-btn {
+  margin-top: -0.5rem;
+}
+
+.oauth-login-container .fb-btn {
+  margin-top: 0.5rem;
 }
