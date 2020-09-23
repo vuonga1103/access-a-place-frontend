@@ -51,6 +51,7 @@ const RegisterPage = (props) => {
     <UserForm
       handleChange={handleChange}
       handleSubmit={handleSubmit}
+      handleResponse={handleResponse}
       register
     />
   );

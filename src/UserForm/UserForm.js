@@ -1,8 +1,36 @@
 import React from "react";
+import GoogleLogin from "react-google-login";
 import styles from "./UserForm.module.css";
 
 export default function UserForm(props) {
-  const { handleSubmit, handleChange } = props;
+  const { handleSubmit, handleChange, handleResponse } = props;
+
+  const handleGoogleLoginSuccess = (response) => {
+    const { givenName, familyName, email, imageUrl } = response.profileObj;
+    const userObj = {
+      first_name: givenName || "",
+      last_name: familyName || "",
+      email: email,
+      image_url: imageUrl || "",
+    };
+
+    fetch("http://localhost:4000/google-login", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userObj),
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        handleResponse(result);
+      });
+  };
+
+  const handleGoogleLoginFailure = (response) => {
+    console.log("Log in unsuccessful. Please try again.");
+  };
 
   return (
     <div className={styles["form-container"]}>
@@ -95,11 +123,19 @@ export default function UserForm(props) {
           </button>
         </div>
       </form>
-
-      {/* <button className="button" onClick={handleGoogleLogin}>
-        Log In With Google
-      </button> */}
-      <a href="http://localhost:4000/auth/google_oauth2">Log in with google</a>
+      <div className={styles["google-login"]}>
+        <h5 className="subtitle is-5">
+          {props.register ? "Register" : "Log in "} with your Google account
+        </h5>
+        <GoogleLogin
+          clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+          buttonText="Log In"
+          onSuccess={handleGoogleLoginSuccess}
+          onFailure={handleGoogleLoginFailure}
+          cookiePolicy={"single_host_origin"}
+          responseType="code,token"
+        />
+      </div>
     </div>
   );
 }
