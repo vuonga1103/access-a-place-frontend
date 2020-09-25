@@ -7,6 +7,7 @@ import styles from "./UserForm.module.css";
 export default function UserForm(props) {
   const { handleSubmit, handleChange, handleResponse } = props;
 
+  // Parse token object that Google sends back upon "Google Sign In" click, send token to backend so backend can fetch user's info and return a user and their token
   const responseGoogle = (google_response) => {
     const token = google_response.wc;
     const requestOptions = {

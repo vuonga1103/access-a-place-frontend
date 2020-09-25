@@ -15,10 +15,13 @@ import { Link } from "react-scroll";
 import selectedMarker from "../assets/selectedMarker.png";
 
 export default function EstablishmentPage() {
+  const history = useHistory();
+  const params = useParams();
   const dispatch = useDispatch();
   const establishment = useSelector(
     (state) => state.establishmentInformation.currentEstablishment
   );
+  const slug = params.slug;
 
   const [viewport, setViewport] = useState({
     width: "100%",
@@ -28,13 +31,8 @@ export default function EstablishmentPage() {
     zoom: 13,
   });
 
-  const history = useHistory();
-  const params = useParams();
-  const slug = params.slug;
-
   useEffect(() => {
-    dispatch({ type: "SET_CURRENT_ESTABLISHMENT", payload: null });
-
+    dispatch({ type: "SET_CURRENT_ESTABLISHMENT", payload: null }); // Clear previous currentEstablishment if any
     fetchEstablishment();
   }, []);
 
@@ -50,13 +48,14 @@ export default function EstablishmentPage() {
       .then((response) => response.json())
       .then((establishment) => {
         if (establishment.error) {
-          alert("Establishment not found!");
-          history.push("/");
+          history.push("/not-found");
         } else {
           dispatch({
             type: "SET_CURRENT_ESTABLISHMENT",
             payload: establishment,
           });
+
+          // Sets viewport with establishment's coordinates
           setViewport({
             ...viewport,
             latitude: establishment.coordinates.latitude,
@@ -66,6 +65,9 @@ export default function EstablishmentPage() {
       });
   };
 
+  if (!establishment) return <LoadingIcon />;
+
+  // Returns an array of images or no-image-available image, to be placed in carousel
   const showEstablishmentImages = () => {
     if (establishment) {
       if (!establishment.photos.length) {
@@ -91,8 +93,6 @@ export default function EstablishmentPage() {
       });
     }
   };
-
-  if (!establishment) return <LoadingIcon />;
 
   const showOpenTimes = () => {
     if (establishment.hours[0]) {
@@ -130,13 +130,27 @@ export default function EstablishmentPage() {
     }
   };
 
+  const {
+    name,
+    categories,
+    location,
+    phone,
+    average_overall,
+    average_parking,
+    average_interior,
+    average_entrance,
+    average_bathroom,
+    hours,
+    coordinates,
+  } = establishment;
+
   return (
     <div className={styles.container}>
       <div className={styles["heading-container"]}>
         <div>
-          <h2 className={`title is-2 ${styles.name}`}>{establishment.name}</h2>
+          <h2 className={`title is-2 ${styles.name}`}>{name}</h2>
           <div>
-            {establishment.categories.join(", ")} {showIsOpenOrClosed()}
+            {categories.join(", ")} {showIsOpenOrClosed()}
             <br />
             <Link to="write-review" smooth={true}>
               <i className="fas fa-pen-alt"></i> Write Accessibility Review!
@@ -146,9 +160,8 @@ export default function EstablishmentPage() {
 
         <div>
           <h4 className={`subtitle ${styles.address}`}>
-            {establishment.location[0]} <br /> {establishment.location[1]}{" "}
-            <br />
-            {establishment.phone}
+            {location[0]} <br /> {location[1]} <br />
+            {phone}
             <br />
           </h4>
         </div>
@@ -171,44 +184,32 @@ export default function EstablishmentPage() {
                 <tr>
                   <td>Overall: </td>
                   <td>
-                    <BusinessRating rating={establishment.average_overall} />
+                    <BusinessRating rating={average_overall} />
                   </td>
                 </tr>
                 <tr>
                   <td>Parking: </td>
                   <td>
-                    <BusinessRating
-                      rating={establishment.average_parking}
-                      icon="parking"
-                    />
+                    <BusinessRating rating={average_parking} icon="parking" />
                   </td>
                 </tr>
                 <tr>
                   <td>Entrance: </td>
                   <td>
-                    <BusinessRating
-                      rating={establishment.average_entrance}
-                      icon="entrance"
-                    />
+                    <BusinessRating rating={average_entrance} icon="entrance" />
                   </td>
                 </tr>
 
                 <tr>
                   <td>Interior: </td>
                   <td>
-                    <BusinessRating
-                      rating={establishment.average_interior}
-                      icon="interior"
-                    />
+                    <BusinessRating rating={average_interior} icon="interior" />
                   </td>
                 </tr>
                 <tr>
                   <td>Bathroom:</td>
                   <td>
-                    <BusinessRating
-                      rating={establishment.average_bathroom}
-                      icon="bathroom"
-                    />
+                    <BusinessRating rating={average_bathroom} icon="bathroom" />
                   </td>
                 </tr>
               </tbody>
@@ -216,7 +217,7 @@ export default function EstablishmentPage() {
           </div>
           <ul className={styles["hours-container"]}>
             <li>
-              {establishment.hours[0] && (
+              {hours[0] && (
                 <u>
                   <strong>Hours of Operation</strong>
                 </u>
@@ -234,8 +235,8 @@ export default function EstablishmentPage() {
         mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_API_KEY}
       >
         <Marker
-          latitude={establishment.coordinates.latitude}
-          longitude={establishment.coordinates.longitude}
+          latitude={coordinates.latitude}
+          longitude={coordinates.longitude}
         >
           <img
             src={selectedMarker}

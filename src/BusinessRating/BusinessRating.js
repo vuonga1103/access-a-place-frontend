@@ -3,6 +3,7 @@ import Rating from "react-rating";
 import styles from "./BusinessRating.module.css";
 
 export default function BusinessRating(props) {
+  // Turns icon name into corresponding icon CSS class
   const iconName = (icon) => {
     switch (icon) {
       case "bathroom":
@@ -17,6 +18,7 @@ export default function BusinessRating(props) {
         return "fas fa-wheelchair";
     }
   };
+
   return (
     <div className={styles.container}>
       <div>
@@ -27,9 +29,9 @@ export default function BusinessRating(props) {
         emptySymbol="far fa-star"
         fullSymbol="fas fa-star"
         fractions={2}
-        readonly={!props.write && true}
         initialRating={props.rating}
-        onClick={(value) => props.handleRatingChange(value, props.icon)}
+        readonly={!props.write && true} // Rating can only be changed if prop write was passed in
+        onClick={(value) => props.handleRatingChange(value, props.icon)} // If user changes rating, handle change via setting state to new rating value
       />
     </div>
   );

@@ -4,18 +4,28 @@ import styles from "./Review.module.css";
 import profile from "../../../assets/profile.png";
 
 export default function Review({ review }) {
+  const {
+    user,
+    date,
+    parking_rating,
+    entrance_rating,
+    interior_rating,
+    bathroom_rating,
+    content,
+  } = review;
+
   return (
     <div className={styles.container}>
       <div className={styles.user}>
         <div>
           <img
-            src={review.user.image_url ? review.user.image_url : profile}
+            src={user.image_url ? user.image_url : profile}
             alt="user profile"
           />
           <div classNName={styles.name}>
-            {review.user.first_name} {review.user.last_name[0]}.
+            {user.first_name} {user.last_name[0]}.
           </div>
-          <div className={styles.date}>{review.date}</div>
+          <div className={styles.date}>{date}</div>
         </div>
       </div>
 
@@ -29,10 +39,7 @@ export default function Review({ review }) {
                     <strong>Parking: </strong>
                   </td>
                   <td>
-                    <BusinessRating
-                      rating={review.parking_rating}
-                      icon={"parking"}
-                    />
+                    <BusinessRating rating={parking_rating} icon={"parking"} />
                   </td>
                 </tr>
                 <tr>
@@ -41,7 +48,7 @@ export default function Review({ review }) {
                   </td>
                   <td>
                     <BusinessRating
-                      rating={review.entrance_rating}
+                      rating={entrance_rating}
                       icon={"entrance"}
                     />
                   </td>
@@ -58,7 +65,7 @@ export default function Review({ review }) {
                   </td>
                   <td>
                     <BusinessRating
-                      rating={review.interior_rating}
+                      rating={interior_rating}
                       icon={"interior"}
                     />
                   </td>
@@ -69,7 +76,7 @@ export default function Review({ review }) {
                   </td>
                   <td>
                     <BusinessRating
-                      rating={review.bathroom_rating}
+                      rating={bathroom_rating}
                       icon={"bathroom"}
                     />
                   </td>
@@ -81,7 +88,7 @@ export default function Review({ review }) {
         <div className={styles.comment}>
           <hr />
           <strong>Comment: </strong>
-          {review.content}
+          {content}
         </div>
       </div>
     </div>

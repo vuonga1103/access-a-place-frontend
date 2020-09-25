@@ -4,13 +4,13 @@ import { useHistory } from "react-router-dom";
 import UserForm from "../UserForm/UserForm";
 
 const LoginPage = (props) => {
+  const history = useHistory();
+  const dispatch = useDispatch();
+
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
-
-  const history = useHistory();
-  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -43,7 +43,7 @@ const LoginPage = (props) => {
         type: "SET_USER_INFORMATION",
         payload: resp,
       });
-      history.go(-1);
+      history.go(-1); // Take user back to page they were on before they clicked Log In
     }
   };
 

@@ -8,43 +8,48 @@ import styles from "./EstablishmentsPage.module.css";
 import LoadingIcon from "../LoadingIcon/LoadingIcon";
 
 export default function EstablishmentsPage() {
-  const dispatch = useDispatch();
   const location = useLocation();
   const history = useHistory();
+  const dispatch = useDispatch();
 
+  const establishments = useSelector(
+    (state) => state.establishmentInformation.establishments
+  );
+  const loaded = useSelector((state) => state.establishmentInformation.loaded);
+  const { longitude, latitude } = useSelector(
+    (state) => state.currentLocationInformation
+  );
+
+  // Extracts params following 'search?' in URL, each param value extracted via .get()
   const params = new URLSearchParams(location.search);
   const termParam = params.get("find_desc");
   const locationParam = params.get("find_loc");
   let search = { term: termParam, location: locationParam };
 
-  const establishments = useSelector(
-    (state) => state.establishmentInformation.establishments
-  );
-
-  const loaded = useSelector((state) => state.establishmentInformation.loaded);
-
   useEffect(() => {
-    dispatch({ type: "CLEAR_ESTABLISHMENTS" });
-
+    dispatch({ type: "CLEAR_ESTABLISHMENTS" }); // Clears previous search
     fetchEstablishments();
 
     return () => {
       dispatch({ type: "SET_SELECTED_ESTABLISHMENT", payload: null });
       dispatch({ type: "SET_NOT_LOADED" });
     };
-  }, []);
+  }, [longitude, latitude]); // Once current location's long and lat are set, to call fetch again
 
   const fetchEstablishments = () => {
-    // If no term or location is input in the URL search params, then take user back to home
     if (!termParam || !locationParam) {
       return history.push("/");
     }
 
     if (search.location === "NEAR ME") {
+      if (!longitude && !latitude) {
+        return; // Early return, no fetching if current location's long and lat are not yet set
+      }
+
       search = {
         term: termParam,
-        longitude: localStorage.longitude,
-        latitude: localStorage.latitude,
+        longitude: longitude,
+        latitude: latitude,
       };
     }
 
@@ -59,9 +64,9 @@ export default function EstablishmentsPage() {
       body: JSON.stringify({ query }),
     })
       .then((response) => response.json())
-      .then((result) => {
-        if (!result.error) {
-          dispatch({ type: "SET_ESTABLISHMENTS", payload: result });
+      .then((establishments) => {
+        if (!establishments.error) {
+          dispatch({ type: "SET_ESTABLISHMENTS", payload: establishments });
         }
         dispatch({ type: "SET_LOADED" });
       });

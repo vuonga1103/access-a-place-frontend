@@ -17,33 +17,30 @@ function App() {
   const loggedIn = useSelector((state) => state.userInformation.token);
 
   useEffect(() => {
-    if (localStorage.token) {
-      persistLoggedInUser();
-    }
-
+    localStorage.token && persistLoggedInUser();
     getUsersLocation();
   });
 
   const persistLoggedInUser = () => {
     fetch("http://localhost:4000/persist", {
-      headers: {
-        Authorization: `bearer ${localStorage.token}`,
-      },
+      headers: { Authorization: `bearer ${localStorage.token}` },
     })
       .then((response) => response.json())
-      .then((result) => {
-        dispatch({ type: "SET_USER_INFORMATION", payload: result });
-        localStorage.token = result.token;
+      .then((user) => {
+        dispatch({ type: "SET_USER_INFORMATION", payload: user });
+        localStorage.token = user.token;
       });
   };
 
   const getUsersLocation = () => {
     navigator.geolocation.getCurrentPosition((position) => {
-      const longitude = position.coords.longitude;
-      const latitude = position.coords.latitude;
-
-      localStorage.longitude = longitude;
-      localStorage.latitude = latitude;
+      dispatch({
+        type: "SET_CURRENT_LOCATION",
+        payload: {
+          longitude: position.coords.longitude,
+          latitude: position.coords.latitude,
+        },
+      });
     });
   };
 
@@ -67,6 +64,8 @@ function App() {
         </Route>
 
         <Route path="/" exact component={HomePage} />
+
+        <Route path="/not-found" exact component={NotFoundPage} />
 
         <Route path="*" component={NotFoundPage} />
       </Switch>

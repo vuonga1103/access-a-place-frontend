@@ -8,7 +8,7 @@ export default function EstablishmentCard({ establishment }) {
   const dispatch = useDispatch();
 
   const handleMouseOver = () => {
-    dispatch({ type: "SET_SELECTED_ESTABLISHMENT", payload: establishment });
+    dispatch({ type: "SET_SELECTED_ESTABLISHMENT", payload: establishment }); // Will later be selected to make establishment's pin change color on map
   };
 
   const {
@@ -26,6 +26,7 @@ export default function EstablishmentCard({ establishment }) {
       <Link to={`/establishment/${alias}`}>
         <img src={image_url} alt={name} className={styles["business-image"]} />
       </Link>
+
       <div className={styles["business-info"]}>
         <h2 className="subtitle">
           <Link to={`/establishment/${alias}`}>{name}</Link>
@@ -35,6 +36,7 @@ export default function EstablishmentCard({ establishment }) {
           <BusinessRating rating={average_overall} />
         </div>
       </div>
+
       <div className={styles["contact-info"]}>
         <p>
           {location[0]}

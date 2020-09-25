@@ -4,6 +4,9 @@ import { useHistory } from "react-router-dom";
 import UserForm from "../UserForm/UserForm";
 
 const RegisterPage = (props) => {
+  const history = useHistory();
+  const dispatch = useDispatch();
+
   const [form, setForm] = useState({
     first_name: "",
     last_name: "",
@@ -11,9 +14,6 @@ const RegisterPage = (props) => {
     password: "",
     password_confirm: "",
   });
-
-  const history = useHistory();
-  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();

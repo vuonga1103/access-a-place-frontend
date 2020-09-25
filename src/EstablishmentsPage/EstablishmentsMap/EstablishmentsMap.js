@@ -6,6 +6,7 @@ import BusinessRating from "../../BusinessRating/BusinessRating";
 import "mapbox-gl/dist/mapbox-gl.css";
 import selectedMarker from "../../assets/selectedMarker.png";
 import unselectedMarker from "../../assets/unselectedMarker.png";
+import { Link } from "react-router-dom";
 
 export default function EstablishmentsMap() {
   const establishments = useSelector(
@@ -27,6 +28,7 @@ export default function EstablishmentsMap() {
   });
 
   useEffect(() => {
+    // To make map center on first establishment on list
     if (establishments.length)
       setViewport({
         ...viewport,
@@ -73,6 +75,7 @@ export default function EstablishmentsMap() {
         name,
         categories,
         average_overall,
+        alias,
       } = selectedEstablishment;
 
       return (
@@ -82,10 +85,18 @@ export default function EstablishmentsMap() {
           onClose={() =>
             dispatch({ type: "SET_SELECTED_ESTABLISHMENT", payload: null })
           }
+          closeOnClick={false}
         >
           <div className={styles["popup-container"]}>
-            <img className={styles["popup-image"]} src={image_url} alt={name} />
-            <h2 className={`title is-6 ${styles["popup-title"]}`}>{name}</h2>
+            <Link to={`/establishment/${alias}`}>
+              <img
+                className={styles["popup-image"]}
+                src={image_url}
+                alt={name}
+              />
+
+              <h2 className={`title is-6 ${styles["popup-title"]}`}>{name}</h2>
+            </Link>
             <p>{categories.join(", ")}</p>
             <BusinessRating rating={average_overall} />
           </div>

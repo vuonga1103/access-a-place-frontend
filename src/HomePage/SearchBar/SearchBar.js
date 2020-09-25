@@ -6,9 +6,11 @@ import styles from "./SearchBar.module.css";
 export default function SearchBar(props) {
   const location = useLocation();
   const dispatch = useDispatch();
+  const history = useHistory();
 
   let initialSearchState = { term: "", location: "NEAR ME" };
 
+  // If current URL includes '/search?' extract out those values and set initial state accordingly; this is to prepopulate fields with current search user entered
   if (location.search) {
     const params = new URLSearchParams(location.search);
     const termParam = params.get("find_desc");
@@ -21,8 +23,6 @@ export default function SearchBar(props) {
 
   const [search, setSearch] = useState(initialSearchState);
 
-  const history = useHistory();
-
   const handleChange = (e) =>
     setSearch({ ...search, [e.target.name]: e.target.value });
 
@@ -33,6 +33,7 @@ export default function SearchBar(props) {
       const missingField = !search.term ? "term" : "location";
       alert("Please enter search " + missingField);
     } else {
+      // Ensure that term and location inputs are in appropriate URI format, i.e. spaces and special characters are escaped
       const urlEncodedTerm = encodeURI(search.term);
       const urlEncodedLocation = encodeURI(search.location);
 
@@ -41,7 +42,7 @@ export default function SearchBar(props) {
         `/search?find_desc=${urlEncodedTerm}&find_loc=${urlEncodedLocation}`
       );
 
-      //causes page refresh
+      // Causes page refresh, to fix loading bug
       history.go(0);
     }
   };
