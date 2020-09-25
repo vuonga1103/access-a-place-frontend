@@ -1,9 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory, useLocation } from "react-router-dom";
-import Logo from "../HomePage/Logo/Logo";
 import SearchBar from "../HomePage/SearchBar/SearchBar";
 import styles from "./NavBar.module.css";
+import wheelchair from "../assets/wheelchair.png";
 
 export default function NavBar(props) {
   // TODO
@@ -30,7 +30,7 @@ export default function NavBar(props) {
       <div className="navbar-brand">
         <Link to="/">
           <div className="navbar-item">
-            <Logo />
+            <img src={wheelchair} alt="wheelchair icon" />
           </div>
         </Link>
 

@@ -12,7 +12,7 @@ export default function ReviewsContainer() {
 
   const showReviews = () => {
     if (establishment.reviews.length) {
-      const reviews = establishment.reviews.map((r) => {
+      const reviews = establishment.reviews.reverse().map((r) => {
         return <Review key={r.id} review={r} />;
       });
 

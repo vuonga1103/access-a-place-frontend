@@ -18,9 +18,16 @@
   border-radius: 50%;
 }
 
+.user .name {
+}
+
+.user .date {
+  font-size: 0.8rem;
+}
+
 .content {
   flex: 4;
-  background-color: #eae2f5;
+  background-color: #f0e9fa;
   padding: 0.8rem;
   border-radius: 10px;
 }

@@ -1,11 +1,8 @@
 .loading-icon {
-  margin-left: 43%;
+  margin-left: 50%;
+  margin-top: 40vh;
 }
 
 .loading-icon img {
-  width: 300px;
-}
-
-:global(.title.is-6).loading-text {
-  margin-left: 50%;
+  width: 50px;
 }

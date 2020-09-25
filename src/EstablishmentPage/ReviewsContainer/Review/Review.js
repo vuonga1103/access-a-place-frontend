@@ -12,10 +12,10 @@ export default function Review({ review }) {
             src={review.user.image_url ? review.user.image_url : profile}
             alt="user profile"
           />
-          <br />
-          {review.user.first_name} {review.user.last_name[0]}.
-          <br />
-          {review.date}
+          <div classNName={styles.name}>
+            {review.user.first_name} {review.user.last_name[0]}.
+          </div>
+          <div className={styles.date}>{review.date}</div>
         </div>
       </div>
 
