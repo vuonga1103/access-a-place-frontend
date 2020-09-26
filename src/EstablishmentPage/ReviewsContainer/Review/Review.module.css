@@ -1,24 +1,33 @@
 .container {
   display: flex;
-  width: 80%;
+  width: 90%;
   margin-right: auto;
   margin-left: auto;
   margin-bottom: 1rem;
+  gap: 0.5rem;
 }
 
-.user {
+.est-or-user-info {
   flex: 1;
   display: flex;
   justify-content: space-around;
   text-align: center;
 }
 
-.user img {
+.est-or-user-info .user-img {
   width: 75px;
+  height: 75px;
   border-radius: 50%;
+  object-fit: cover;
+}
+.est-or-user-info .est-img {
+  width: 75px;
+  height: 75px;
+  border-radius: 10%;
+  object-fit: cover;
 }
 
-.user .date {
+.est-or-user-info .date {
   margin-top: -0.3rem;
   font-size: 0.8rem;
 }

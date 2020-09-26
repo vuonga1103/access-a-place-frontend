@@ -2,28 +2,59 @@ import React from "react";
 import BusinessRating from "../../../BusinessRating/BusinessRating";
 import styles from "./Review.module.css";
 import profile from "../../../assets/profile.png";
+import no_image from "../../../assets/no_image.jpg";
 
-export default function Review({ review }) {
+export default function Review(props) {
   const {
-    user,
     date,
     parking_rating,
     entrance_rating,
     interior_rating,
     bathroom_rating,
     content,
-  } = review;
+  } = props.review;
 
-  return (
-    <div className={styles.container}>
-      <div className={styles.user}>
+  const displayUserInfo = () => {
+    if (props.displayOn === "establishment-page") {
+      const { user } = props.review;
+      return (
         <div>
-          <img src={user.image_url || profile} alt="user profile" />
+          <img
+            src={user.image_url || profile}
+            alt="user profile"
+            className={styles["user-img"]}
+          />
           <div className={styles.name}>
             {user.first_name} {user.last_name[0]}.
           </div>
           <div className={styles.date}>{date}</div>
         </div>
+      );
+    }
+  };
+
+  const displayEstInfo = () => {
+    if (props.displayOn === "user-page") {
+      const { place_name, image_url, date } = props.review;
+      return (
+        <div>
+          <img
+            src={image_url || no_image}
+            alt="establishment"
+            className={styles["est-img"]}
+          />
+          <div className={styles.name}>{place_name.slice(0, 11)}</div>
+          <div className={styles.date}>{date}</div>
+        </div>
+      );
+    }
+  };
+
+  return (
+    <div className={styles.container}>
+      <div className={styles["est-or-user-info"]}>
+        {displayUserInfo()}
+        {displayEstInfo()}
       </div>
 
       <div className={styles.content}>

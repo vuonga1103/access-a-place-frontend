@@ -26,6 +26,7 @@ const userInitialState = {
   last_name: "",
   email: "",
   image_url: "",
+  date_joined: "",
   reviews: [],
   bookmarks: [],
 };
@@ -70,6 +71,7 @@ const userReducer = (state = userInitialState, action) => {
         email,
         image_url,
         reviews,
+        date_joined,
       } = action.payload.user;
 
       return {
@@ -78,6 +80,7 @@ const userReducer = (state = userInitialState, action) => {
         first_name,
         last_name,
         email,
+        date_joined,
         image_url,
         reviews,
         token: action.payload.token,

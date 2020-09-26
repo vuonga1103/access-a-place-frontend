@@ -11,6 +11,7 @@ import NavBar from "./NavBar/NavBar";
 import NotFoundPage from "./NotFoundPage/NotFoundPage";
 import RegisterPage from "./RegisterPage/RegisterPage";
 import AboutPage from "./AboutPage/AboutPage";
+import UserPage from "./UserPage/UserPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -19,7 +20,8 @@ function App() {
   useEffect(() => {
     localStorage.token && persistLoggedInUser();
     getUsersLocation();
-  });
+    loggedIn && fetchUserBookmarks(); // If there is a logged in user then get their bookmarks
+  }, [loggedIn]);
 
   const persistLoggedInUser = () => {
     fetch("http://localhost:4000/persist", {
@@ -44,6 +46,16 @@ function App() {
     });
   };
 
+  const fetchUserBookmarks = () => {
+    fetch(`http://localhost:4000/user-bookmarks`, {
+      headers: { Authorization: `bearer ${localStorage.token}` },
+    })
+      .then((response) => response.json())
+      .then((bookmarks) => {
+        dispatch({ type: "SET_USER_BOOKMARKS", payload: bookmarks });
+      });
+  };
+
   return (
     <div className="App">
       <NavBar />
@@ -62,6 +74,8 @@ function App() {
         <Route path="/login" exact>
           {loggedIn ? <Redirect to="/" /> : <LoginPage />}
         </Route>
+
+        <Route path="/users/:id" exact component={UserPage} />
 
         <Route path="/" exact component={HomePage} />
 

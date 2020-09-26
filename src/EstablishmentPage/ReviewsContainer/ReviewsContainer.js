@@ -14,7 +14,9 @@ export default function ReviewsContainer() {
     if (establishment.reviews.length) {
       const reviews = establishment.reviews
         .reverse() // Ensures that most recent reviews show up first
-        .map((r) => <Review key={r.id} review={r} />);
+        .map((r) => (
+          <Review key={r.id} review={r} displayOn="establishment-page" />
+        ));
       return <div className={styles.reviews}>{reviews}</div>;
     } else {
       return (
