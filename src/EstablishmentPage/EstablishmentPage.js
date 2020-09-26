@@ -13,6 +13,8 @@ import { useDispatch, useSelector } from "react-redux";
 import LoadingIcon from "../LoadingIcon/LoadingIcon";
 import { Link } from "react-scroll";
 import selectedMarker from "../assets/selectedMarker.png";
+import no_image from "../assets/no_image.jpg";
+import Bookmark from "../Bookmark/Bookmark";
 
 export default function EstablishmentPage() {
   const history = useHistory();
@@ -21,6 +23,7 @@ export default function EstablishmentPage() {
   const establishment = useSelector(
     (state) => state.establishmentInformation.currentEstablishment
   );
+  const loggedIn = useSelector((state) => state.userInformation.token);
   const slug = params.slug;
 
   const [viewport, setViewport] = useState({
@@ -55,7 +58,7 @@ export default function EstablishmentPage() {
             payload: establishment,
           });
 
-          // Sets viewport with establishment's coordinates
+          // Sets map's viewport at start with establishment's coordinates
           setViewport({
             ...viewport,
             latitude: establishment.coordinates.latitude,
@@ -74,7 +77,7 @@ export default function EstablishmentPage() {
         return [
           <img
             key="img"
-            src="https://tacm.com/wp-content/uploads/2018/01/no-image-available.jpeg"
+            src={no_image}
             alt="none"
             className={styles.sliderimg}
           />,
@@ -148,7 +151,15 @@ export default function EstablishmentPage() {
     <div className={styles.container}>
       <div className={styles["heading-container"]}>
         <div>
-          <h2 className={`title is-2 ${styles.name}`}>{name}</h2>
+          <h2 className={`title is-2 ${styles.name}`}>
+            {name}{" "}
+            {loggedIn && (
+              <span className={styles.bookmark}>
+                <Bookmark establishment={establishment} />
+              </span>
+            )}
+          </h2>
+
           <div>
             {categories.join(", ")} {showIsOpenOrClosed()}
             <br />

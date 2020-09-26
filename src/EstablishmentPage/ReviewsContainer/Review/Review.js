@@ -18,11 +18,8 @@ export default function Review({ review }) {
     <div className={styles.container}>
       <div className={styles.user}>
         <div>
-          <img
-            src={user.image_url ? user.image_url : profile}
-            alt="user profile"
-          />
-          <div classNName={styles.name}>
+          <img src={user.image_url || profile} alt="user profile" />
+          <div className={styles.name}>
             {user.first_name} {user.last_name[0]}.
           </div>
           <div className={styles.date}>{date}</div>

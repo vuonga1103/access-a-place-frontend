@@ -19,6 +19,11 @@
   max-width: 600px;
 }
 
+.heading-container div .bookmark img {
+  width: 2rem;
+  cursor: pointer;
+}
+
 :global(.title.is-2).name {
   margin-bottom: 0;
 }

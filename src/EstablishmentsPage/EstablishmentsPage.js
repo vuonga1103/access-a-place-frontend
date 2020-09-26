@@ -12,10 +12,13 @@ export default function EstablishmentsPage() {
   const history = useHistory();
   const dispatch = useDispatch();
 
+  const loggedIn = useSelector((state) => state.userInformation.token);
+
   const establishments = useSelector(
     (state) => state.establishmentInformation.establishments
   );
   const loaded = useSelector((state) => state.establishmentInformation.loaded);
+
   const { longitude, latitude } = useSelector(
     (state) => state.currentLocationInformation
   );
@@ -29,12 +32,13 @@ export default function EstablishmentsPage() {
   useEffect(() => {
     dispatch({ type: "CLEAR_ESTABLISHMENTS" }); // Clears previous search
     fetchEstablishments();
+    loggedIn && fetchUserBookmarks(); // If there is a logged in user then get their bookmarks
 
     return () => {
       dispatch({ type: "SET_SELECTED_ESTABLISHMENT", payload: null });
       dispatch({ type: "SET_NOT_LOADED" });
     };
-  }, [longitude, latitude]); // Once current location's long and lat are set, to call fetch again
+  }, [longitude, latitude, loggedIn]); // Once current location's long and lat are set, to call fetch again
 
   const fetchEstablishments = () => {
     if (!termParam || !locationParam) {
@@ -69,6 +73,16 @@ export default function EstablishmentsPage() {
           dispatch({ type: "SET_ESTABLISHMENTS", payload: establishments });
         }
         dispatch({ type: "SET_LOADED" });
+      });
+  };
+
+  const fetchUserBookmarks = () => {
+    fetch(`http://localhost:4000/user-bookmarks`, {
+      headers: { Authorization: `bearer ${localStorage.token}` },
+    })
+      .then((response) => response.json())
+      .then((bookmarks) => {
+        dispatch({ type: "SET_USER_BOOKMARKS", payload: bookmarks });
       });
   };
 

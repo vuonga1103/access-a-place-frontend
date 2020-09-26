@@ -5,6 +5,7 @@
   margin-bottom: 1rem;
   background-color: rgb(250, 243, 243);
   border-radius: 10px;
+  position: relative;
 }
 
 .business-image {
@@ -35,4 +36,12 @@
 .contact-info p {
   margin-top: 1rem;
   font-size: 1rem;
+}
+
+.bookmark {
+  position: absolute;
+  top: 0;
+  right: 1rem;
+  width: 2rem;
+  cursor: pointer;
 }

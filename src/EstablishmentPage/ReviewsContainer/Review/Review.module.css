@@ -18,10 +18,8 @@
   border-radius: 50%;
 }
 
-.user .name {
-}
-
 .user .date {
+  margin-top: -0.3rem;
   font-size: 0.8rem;
 }
 

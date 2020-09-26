@@ -27,6 +27,7 @@ const userInitialState = {
   email: "",
   image_url: "",
   reviews: [],
+  bookmarks: [],
 };
 
 const currentLocationInitialState = {
@@ -67,8 +68,8 @@ const userReducer = (state = userInitialState, action) => {
         first_name,
         last_name,
         email,
-        reviews,
         image_url,
+        reviews,
       } = action.payload.user;
 
       return {
@@ -77,13 +78,27 @@ const userReducer = (state = userInitialState, action) => {
         first_name,
         last_name,
         email,
-        reviews,
         image_url,
+        reviews,
         token: action.payload.token,
       };
 
     case "LOG_USER_OUT":
       return userInitialState;
+
+    case "SET_USER_BOOKMARKS":
+      return { ...state, bookmarks: action.payload };
+
+    case "REMOVE_BOOKMARK":
+      const bookmarkToRemove = action.payload;
+      const updatedBookmarks = [...state.bookmarks].filter(
+        (b) => !b.id === bookmarkToRemove.id
+      );
+      return { ...state, bookmarks: updatedBookmarks };
+
+    case "ADD_BOOKMARK":
+      const bookmarkToAdd = action.payload;
+      return { ...state, bookmarks: [...state.bookmarks, bookmarkToAdd] };
     default:
       return state;
   }

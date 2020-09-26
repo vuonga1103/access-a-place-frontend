@@ -1,11 +1,13 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import Bookmark from "../../../Bookmark/Bookmark";
 import BusinessRating from "../../../BusinessRating/BusinessRating";
 import styles from "./EstablishmentCard.module.css";
 
 export default function EstablishmentCard({ establishment }) {
   const dispatch = useDispatch();
+  const loggedIn = useSelector((state) => state.userInformation.token);
 
   const handleMouseOver = () => {
     dispatch({ type: "SET_SELECTED_ESTABLISHMENT", payload: establishment }); // Will later be selected to make establishment's pin change color on map
@@ -44,6 +46,10 @@ export default function EstablishmentCard({ establishment }) {
           {location[1]}
         </p>
         <p>{phone}</p>
+      </div>
+
+      <div className={styles.bookmark}>
+        {loggedIn && <Bookmark establishment={establishment} />}
       </div>
     </div>
   );

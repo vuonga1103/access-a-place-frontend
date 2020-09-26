@@ -30,7 +30,7 @@ export default function BusinessRating(props) {
         fullSymbol="fas fa-star"
         fractions={2}
         initialRating={props.rating}
-        readonly={!props.write && true} // Rating can only be changed if prop write was passed in
+        readonly={!props.write} // Rating can only be changed if prop "write" was passed in
         onClick={(value) => props.handleRatingChange(value, props.icon)} // If user changes rating, handle change via setting state to new rating value
       />
     </div>
