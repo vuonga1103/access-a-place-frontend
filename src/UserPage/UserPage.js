@@ -5,8 +5,7 @@ import styles from "./UserPage.module.css";
 import genericProfileImage from "../assets/profile.png";
 import Review from "../EstablishmentPage/ReviewsContainer/Review/Review";
 import { useSelector } from "react-redux";
-import no_image from "../assets/no_image.jpg";
-import Bookmark from "../Bookmark/Bookmark";
+import BookmarkedItem from "./BookmarkedItem/BookmarkedItem";
 
 export default function UserPage() {
   const params = useParams();
@@ -36,21 +35,11 @@ export default function UserPage() {
     return <Review key={r.content} review={r} displayOn="user-page" />;
   });
 
-  const userBookmarks = bookmarks.reverse().map((b) => {
-    return (
-      <div key={b.id} className={styles["bookmark-container"]}>
-        <img
-          src={b.establishment.image_url || no_image}
-          alt="b.establishment.name"
-        />
-        <br />
-        {b.establishment.name.slice(0, 12)}
-        <div className={styles.bookmark}>
-          <Bookmark establishment={b.establishment} />
-        </div>
-      </div>
-    );
-  });
+  const userBookmarks = () => {
+    return bookmarks
+      .reverse()
+      .map((b) => <BookmarkedItem key={b.id} bookmark={b} />);
+  };
 
   const { date_joined, first_name, last_name, image_url } = user;
 
@@ -78,15 +67,23 @@ export default function UserPage() {
 
         <div className={styles["reviews-container"]}>
           <h4 className="title is-4">Recent Reviews</h4>
-          <div className={styles.reviews}>{userReviews}</div>
+
+          {userReviews.length ? (
+            <div className={styles.reviews}>{userReviews}</div>
+          ) : (
+            <div>No Reviews Yet</div>
+          )}
         </div>
       </div>
 
       {loggedIn && loggedInUser.id === userId ? (
         <div className={styles["bookmarks-container"]}>
           <h4 className="title is-4">Bookmarked Places</h4>
-
-          <div className={styles.outer}>{userBookmarks}</div>
+          {bookmarks.length ? (
+            <div className={styles.outer}>{userBookmarks()}</div>
+          ) : (
+            <div>No Bookmarks Yet</div>
+          )}
         </div>
       ) : null}
     </div>

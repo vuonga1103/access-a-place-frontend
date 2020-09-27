@@ -36,7 +36,7 @@ export default function EstablishmentsPage() {
       dispatch({ type: "SET_SELECTED_ESTABLISHMENT", payload: null });
       dispatch({ type: "SET_NOT_LOADED" });
     };
-  }, [longitude, latitude, loggedIn]); // Once current location's long and lat are set, to call fetch again
+  }, [longitude, latitude, loggedIn, location]); // Once current location's long and lat are set, to call fetch again
 
   const fetchEstablishments = () => {
     if (!termParam || !locationParam) {

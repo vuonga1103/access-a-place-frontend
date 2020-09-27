@@ -35,7 +35,7 @@ function App() {
   };
 
   const getUsersLocation = () => {
-    navigator.geolocation.getCurrentPosition((position) => {
+    navigator.geolocation.watchPosition((position) => {
       dispatch({
         type: "SET_CURRENT_LOCATION",
         payload: {

@@ -1,0 +1,11 @@
+.establishment {
+  display: inline-block;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.establishment img {
+  height: 150px;
+  width: 150px;
+  object-fit: cover;
+}

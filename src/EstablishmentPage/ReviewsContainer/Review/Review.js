@@ -3,6 +3,7 @@ import BusinessRating from "../../../BusinessRating/BusinessRating";
 import styles from "./Review.module.css";
 import profile from "../../../assets/profile.png";
 import no_image from "../../../assets/no_image.jpg";
+import { Link } from "react-router-dom";
 
 export default function Review(props) {
   const {
@@ -19,11 +20,15 @@ export default function Review(props) {
       const { user } = props.review;
       return (
         <div>
-          <img
-            src={user.image_url || profile}
-            alt="user profile"
-            className={styles["user-img"]}
-          />
+          <Link to={`/users/${user.id}`}>
+            {" "}
+            <img
+              src={user.image_url || profile}
+              alt="user profile"
+              className={styles["user-img"]}
+            />
+          </Link>
+
           <div className={styles.name}>
             {user.first_name} {user.last_name[0]}.
           </div>
@@ -35,14 +40,18 @@ export default function Review(props) {
 
   const displayEstInfo = () => {
     if (props.displayOn === "user-page") {
-      const { place_name, image_url, date } = props.review;
+      console.log("review:", props.review);
+      const { place_name, place_alias, image_url, date } = props.review;
       return (
         <div>
-          <img
-            src={image_url || no_image}
-            alt="establishment"
-            className={styles["est-img"]}
-          />
+          <Link to={`/establishment/${place_alias}`}>
+            <img
+              src={image_url || no_image}
+              alt="establishment"
+              className={styles["est-img"]}
+            />
+          </Link>
+
           <div className={styles.name}>{place_name.slice(0, 11)}</div>
           <div className={styles.date}>{date}</div>
         </div>
