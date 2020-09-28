@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import SearchBar from "../HomePage/SearchBar/SearchBar";
 import styles from "./NavBar.module.css";
-import wheelchair from "../assets/wheelchair.png";
+import access_text from "../assets/access_text.png";
 
 export default function NavBar(props) {
-  const [isActive, setisActive] = useState(false);
+  const [isActive, setIsActive] = useState(false);
 
   const loggedIn = useSelector((state) => state.userInformation.token);
   const loggedInUser = useSelector((state) => state.userInformation);
@@ -24,15 +24,19 @@ export default function NavBar(props) {
   return (
     <nav className="navbar" role="navigation" aria-label="main navigation">
       <div className="navbar-brand">
-        <Link to="/">
-          <div className="navbar-item">
-            <img src={wheelchair} alt="wheelchair icon" />
-          </div>
-        </Link>
+        <div className="navbar-item">
+          <Link to="/">
+            <img
+              src={access_text}
+              alt="access logo text"
+              style={{ width: "190px" }}
+            />
+          </Link>
+        </div>
 
         <div
           onClick={() => {
-            setisActive(!isActive);
+            setIsActive(!isActive);
           }}
           role="button"
           className={`navbar-burger burger ${isActive ? "is-active" : ""}`}

@@ -1,5 +1,5 @@
 .main-container {
-  background-color: rgb(250, 243, 243);
+  background-image: linear-gradient(rgb(250, 243, 243), white);
   border-radius: 10px;
   max-width: 900px;
   margin: 2rem auto 4rem auto;
@@ -58,4 +58,5 @@
   overflow-x: scroll;
   overflow-y: hidden;
   white-space: nowrap;
+  height: 208px;
 }

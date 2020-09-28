@@ -127,8 +127,8 @@ export default function UserForm(props) {
           <div>
             <GoogleLogin
               height="10"
-              width="200px"
-              text="Google Login"
+              width="250px"
+              text="Continue With Google"
               backgroundColor="#4285f4"
               access="offline"
               scope="email profile"
