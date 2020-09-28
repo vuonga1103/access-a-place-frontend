@@ -6,6 +6,7 @@ import genericProfileImage from "../assets/profile.png";
 import Review from "../EstablishmentPage/ReviewsContainer/Review/Review";
 import { useDispatch, useSelector } from "react-redux";
 import BookmarkedItem from "./BookmarkedItem/BookmarkedItem";
+import Medal from "../Medal/Medal";
 
 export default function UserPage() {
   const params = useParams();
@@ -48,7 +49,13 @@ export default function UserPage() {
     return bookmarks.map((b) => <BookmarkedItem key={b.id} bookmark={b} />);
   };
 
-  const { date_joined, first_name, last_name, image_url } = currentPageUser;
+  const {
+    date_joined,
+    first_name,
+    last_name,
+    image_url,
+    reviews,
+  } = currentPageUser;
 
   return (
     <div className={styles["main-container"]}>
@@ -58,11 +65,18 @@ export default function UserPage() {
 
       <div className={styles["photos-reviews-container"]}>
         <div className={styles["photo-container"]}>
-          <img src={image_url || genericProfileImage} alt="profile" />
+          <img
+            src={image_url || genericProfileImage}
+            alt="profile"
+            className={styles.profile}
+          />
           <div className={styles.details}>
             <strong>
-              {first_name} {last_name[0]}.
+              {first_name} {last_name[0]}.{" "}
             </strong>
+
+            <Medal numReviews={reviews.length} />
+
             <br />
             <span className="tag is-danger is-light">Joined {date_joined}</span>
             <br />

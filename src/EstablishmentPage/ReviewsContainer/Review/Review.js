@@ -1,15 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import BusinessRating from "../../../BusinessRating/BusinessRating";
 import styles from "./Review.module.css";
 import profile from "../../../assets/profile.png";
 import no_image from "../../../assets/no_image.jpg";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import Medal from "../../../Medal/Medal";
 
 export default function Review(props) {
   const loggedInUser = useSelector((state) => state.userInformation);
   const loggedIn = useSelector((state) => state.userInformation.token);
   const dispatch = useDispatch();
+  const [numReviews, setNumReviews] = useState(0);
 
   let {
     id,
@@ -26,6 +28,18 @@ export default function Review(props) {
     user_id = props.review.user.id;
   }
 
+  useEffect(() => {
+    getNumReviewsByUser();
+  }, []);
+
+  const getNumReviewsByUser = () => {
+    fetch(`http://localhost:4000/users/${user_id}/num-reviews`)
+      .then((response) => response.json())
+      .then((num) => {
+        setNumReviews(num);
+      });
+  };
+
   const displayUserInfo = () => {
     if (props.displayOn === "establishment-page") {
       const { user } = props.review;
@@ -41,7 +55,11 @@ export default function Review(props) {
           </Link>
 
           <div className={styles.name}>
-            {user.first_name} {user.last_name[0]}.
+            <span>
+              {user.first_name} {user.last_name[0]}.
+            </span>
+
+            <Medal numReviews={numReviews} />
           </div>
           <div className={styles.date}>{date}</div>
         </div>

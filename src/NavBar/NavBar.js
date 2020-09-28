@@ -36,8 +36,6 @@ export default function NavBar(props) {
           }}
           role="button"
           className={`navbar-burger burger ${isActive ? "is-active" : ""}`}
-          // className={`navbar-burger burger ${showBurgerOptions && "is-active"}`}
-          // className="navbar-burger burger"
           aria-label="menu"
           aria-expanded="false"
           data-target="navbarBasicExample"
@@ -66,17 +64,6 @@ export default function NavBar(props) {
           <div className="navbar-item">
             {location.pathname !== "/" && <SearchBar small />}
           </div>
-          {/* <div className="navbar-item has-dropdown is-hoverable">
-            <div className="navbar-link">More</div>
-
-            <div className="navbar-dropdown">
-              <div className="navbar-item">About</div>
-              <div className="navbar-item">Jobs</div>
-              <div className="navbar-item">Contact</div>
-              <hr className="navbar-divider" />
-              <div className="navbar-item">Report an issue</div>
-            </div>
-          </div> */}
         </div>
 
         {!loggedIn ? (

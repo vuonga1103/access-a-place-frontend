@@ -30,7 +30,7 @@
   border-radius: 10%;
 }
 
-.photo-container img {
+.photo-container .profile {
   width: 100px;
   border-radius: 50%;
 }
