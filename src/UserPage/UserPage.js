@@ -4,17 +4,21 @@ import Logo from "../HomePage/Logo/Logo";
 import styles from "./UserPage.module.css";
 import genericProfileImage from "../assets/profile.png";
 import Review from "../EstablishmentPage/ReviewsContainer/Review/Review";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import BookmarkedItem from "./BookmarkedItem/BookmarkedItem";
 
 export default function UserPage() {
   const params = useParams();
   const userId = parseInt(params.id);
   const history = useHistory();
+  const dispatch = useDispatch();
 
-  const [user, setUser] = useState(null);
   const loggedIn = !!useSelector((state) => state.userInformation.token);
   const loggedInUser = useSelector((state) => state.userInformation);
+  const currentPageUser = useSelector(
+    (state) => state.currentPageUserInformation
+  );
+
   const bookmarks = useSelector((state) => state.userInformation.bookmarks);
 
   useEffect(() => {
@@ -25,13 +29,15 @@ export default function UserPage() {
     fetch(`http://localhost:4000/users/${userId}`)
       .then((response) => response.json())
       .then((result) => {
-        return result.error ? history.push("/not-found") : setUser(result);
+        return result.error
+          ? history.push("/not-found")
+          : dispatch({ type: "SET_CURRENT_PAGE_USER", payload: result });
       });
   };
 
-  if (!user) return <></>;
+  if (!currentPageUser) return <></>;
 
-  const userReviews = user.reviews.reverse().map((r, i) => {
+  const userReviews = currentPageUser.reviews.reverse().map((r, i) => {
     return <Review key={i + r.content} review={r} displayOn="user-page" />;
   });
 
@@ -41,7 +47,7 @@ export default function UserPage() {
       .map((b) => <BookmarkedItem key={b.id} bookmark={b} />);
   };
 
-  const { date_joined, first_name, last_name, image_url } = user;
+  const { date_joined, first_name, last_name, image_url } = currentPageUser;
 
   return (
     <div className={styles["main-container"]}>

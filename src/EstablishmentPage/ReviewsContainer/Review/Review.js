@@ -77,10 +77,22 @@ export default function Review(props) {
         headers: { Authorization: `bearer ${localStorage.token}` },
       })
         .then((response) => response.json())
-        .then((establishment) => {
+        .then((result) => {
+          alert("Review deleted");
+
+          dispatch({
+            type: "SET_ESTABLISHMENT",
+            payload: result.establishment,
+          });
+
           dispatch({
             type: "SET_CURRENT_ESTABLISHMENT",
-            payload: establishment,
+            payload: result.establishment,
+          });
+
+          dispatch({
+            type: "SET_CURRENT_PAGE_USER",
+            payload: result.user,
           });
         });
     }

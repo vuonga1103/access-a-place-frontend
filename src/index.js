@@ -37,6 +37,17 @@ const currentLocationInitialState = {
   latitude: null,
 };
 
+const pageUserInitialState = {
+  id: 0,
+  first_name: "",
+  last_name: "",
+  email: "",
+  image_url: "",
+  date_joined: "",
+  reviews: [],
+  bookmarks: [],
+};
+
 const establishmentReducer = (state = establishmentInitialState, action) => {
   switch (action.type) {
     case "SET_ESTABLISHMENTS":
@@ -56,6 +67,16 @@ const establishmentReducer = (state = establishmentInitialState, action) => {
 
     case "SET_NOT_LOADED":
       return { ...state, loaded: false };
+
+    case "SET_ESTABLISHMENT":
+      const updatedEstablishments = [state.establishments].map((est) => {
+        if (est.id === action.payload.id) {
+          return action.payload;
+        }
+        return est;
+      });
+
+      return { ...state, establishments: updatedEstablishments };
 
     default:
       return state;
@@ -121,10 +142,40 @@ const currentLocationReducer = (
   }
 };
 
+const currentPageUserReducer = (state = pageUserInitialState, action) => {
+  switch (action.type) {
+    case "SET_CURRENT_PAGE_USER":
+      const {
+        id,
+        first_name,
+        last_name,
+        email,
+        image_url,
+        reviews,
+        date_joined,
+      } = action.payload;
+
+      return {
+        ...state,
+        id,
+        first_name,
+        last_name,
+        email,
+        image_url,
+        reviews,
+        date_joined,
+      };
+
+    default:
+      return state;
+  }
+};
+
 const rootReducer = combineReducers({
   establishmentInformation: establishmentReducer,
   userInformation: userReducer,
   currentLocationInformation: currentLocationReducer,
+  currentPageUserInformation: currentPageUserReducer,
 });
 
 const storeObject = createStore(
