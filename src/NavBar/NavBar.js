@@ -10,6 +10,7 @@ export default function NavBar(props) {
   const handleBurgerClick = () => {};
 
   const loggedIn = useSelector((state) => state.userInformation.token);
+  const loggedInUser = useSelector((state) => state.userInformation);
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
@@ -50,9 +51,11 @@ export default function NavBar(props) {
 
       <div id="navbarBasicExample" className="navbar-menu">
         <div className="navbar-start">
-          <div className="navbar-item">
-            <Link to="/">Home</Link>
-          </div>
+          {loggedIn && (
+            <div className="navbar-item">
+              <Link to={`/users/${loggedInUser.id}`}>Home</Link>
+            </div>
+          )}
 
           <div className="navbar-item">
             <Link to="/about">About</Link>

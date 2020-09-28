@@ -36,7 +36,7 @@ const RegisterPage = (props) => {
     } else {
       localStorage.token = resp.token;
       dispatch({ type: "SET_USER_INFORMATION", payload: resp });
-      history.push("/");
+      history.push(`/users/${resp.user.id}`);
     }
   };
 

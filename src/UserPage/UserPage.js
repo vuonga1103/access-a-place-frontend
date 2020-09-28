@@ -31,8 +31,8 @@ export default function UserPage() {
 
   if (!user) return <></>;
 
-  const userReviews = user.reviews.reverse().map((r) => {
-    return <Review key={r.content} review={r} displayOn="user-page" />;
+  const userReviews = user.reviews.reverse().map((r, i) => {
+    return <Review key={i + r.content} review={r} displayOn="user-page" />;
   });
 
   const userBookmarks = () => {

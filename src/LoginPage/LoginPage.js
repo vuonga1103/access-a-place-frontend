@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { useLastLocation } from "react-router-last-location";
 import UserForm from "../UserForm/UserForm";
 
 const LoginPage = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
+  const lastLocation = useLastLocation();
 
   const [form, setForm] = useState({
     email: "",
@@ -43,7 +45,12 @@ const LoginPage = (props) => {
         type: "SET_USER_INFORMATION",
         payload: resp,
       });
-      history.go(-1); // Take user back to page they were on before they clicked Log In
+
+      if (lastLocation.pathname.startsWith("/establishment/")) {
+        history.go(-1);
+      } else {
+        history.push(`/users/${resp.user.id}`);
+      }
     }
   };
 

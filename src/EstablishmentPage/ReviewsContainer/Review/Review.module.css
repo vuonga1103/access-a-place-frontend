@@ -52,3 +52,10 @@
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
 }
+
+.comment .delete {
+  text-align: right;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}

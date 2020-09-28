@@ -4,16 +4,27 @@ import styles from "./Review.module.css";
 import profile from "../../../assets/profile.png";
 import no_image from "../../../assets/no_image.jpg";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Review(props) {
-  const {
+  const loggedInUser = useSelector((state) => state.userInformation);
+  const loggedIn = useSelector((state) => state.userInformation.token);
+  const dispatch = useDispatch();
+
+  let {
+    id,
     date,
     parking_rating,
     entrance_rating,
     interior_rating,
     bathroom_rating,
     content,
+    user_id,
   } = props.review;
+
+  if (props.review.user) {
+    user_id = props.review.user.id;
+  }
 
   const displayUserInfo = () => {
     if (props.displayOn === "establishment-page") {
@@ -56,6 +67,22 @@ export default function Review(props) {
           <div className={styles.date}>{date}</div>
         </div>
       );
+    }
+  };
+
+  const handleDeleteReviewClick = () => {
+    if (window.confirm("Are you sure you want to delete this review?")) {
+      fetch(`http://localhost:4000/reviews/${id}`, {
+        method: "DELETE",
+        headers: { Authorization: `bearer ${localStorage.token}` },
+      })
+        .then((response) => response.json())
+        .then((establishment) => {
+          dispatch({
+            type: "SET_CURRENT_ESTABLISHMENT",
+            payload: establishment,
+          });
+        });
     }
   };
 
@@ -126,6 +153,11 @@ export default function Review(props) {
           <hr />
           <strong>Comment: </strong>
           {content}
+          {loggedIn && loggedInUser.id === user_id && (
+            <div className={styles.delete} onClick={handleDeleteReviewClick}>
+              Delete
+            </div>
+          )}
         </div>
       </div>
     </div>

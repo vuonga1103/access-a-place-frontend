@@ -7,6 +7,7 @@ import { BrowserRouter } from "react-router-dom";
 import "bulma/css/bulma.css";
 import { createStore, combineReducers } from "redux";
 import { Provider } from "react-redux";
+import { LastLocationProvider } from "react-router-last-location";
 
 /**  REDUX STORE
  *
@@ -95,7 +96,7 @@ const userReducer = (state = userInitialState, action) => {
     case "REMOVE_BOOKMARK":
       const bookmarkToRemove = action.payload;
       const updatedBookmarks = [...state.bookmarks].filter(
-        (b) => !b.id === bookmarkToRemove.id
+        (b) => b.id !== bookmarkToRemove.id
       );
       return { ...state, bookmarks: updatedBookmarks };
 
@@ -134,7 +135,9 @@ const storeObject = createStore(
 ReactDOM.render(
   <Provider store={storeObject}>
     <BrowserRouter>
-      <App />
+      <LastLocationProvider>
+        <App />
+      </LastLocationProvider>
     </BrowserRouter>
   </Provider>,
   document.getElementById("root")
