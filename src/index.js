@@ -123,7 +123,7 @@ const userReducer = (state = userInitialState, action) => {
 
     case "ADD_BOOKMARK":
       const bookmarkToAdd = action.payload;
-      return { ...state, bookmarks: [...state.bookmarks, bookmarkToAdd] };
+      return { ...state, bookmarks: [bookmarkToAdd, ...state.bookmarks] };
     default:
       return state;
   }
