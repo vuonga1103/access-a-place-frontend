@@ -31,20 +31,21 @@ export default function UserPage() {
       .then((result) => {
         return result.error
           ? history.push("/not-found")
-          : dispatch({ type: "SET_CURRENT_PAGE_USER", payload: result });
+          : dispatch({
+              type: "SET_CURRENT_PAGE_USER",
+              payload: result,
+            });
       });
   };
 
   if (!currentPageUser) return <></>;
 
-  const userReviews = currentPageUser.reviews.reverse().map((r, i) => {
+  const userReviews = currentPageUser.reviews.map((r, i) => {
     return <Review key={i + r.content} review={r} displayOn="user-page" />;
   });
 
   const userBookmarks = () => {
-    return bookmarks
-      .reverse()
-      .map((b) => <BookmarkedItem key={b.id} bookmark={b} />);
+    return bookmarks.map((b) => <BookmarkedItem key={b.id} bookmark={b} />);
   };
 
   const { date_joined, first_name, last_name, image_url } = currentPageUser;

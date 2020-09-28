@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import SearchBar from "../HomePage/SearchBar/SearchBar";
@@ -6,8 +6,7 @@ import styles from "./NavBar.module.css";
 import wheelchair from "../assets/wheelchair.png";
 
 export default function NavBar(props) {
-  // TODO
-  const handleBurgerClick = () => {};
+  const [isActive, setisActive] = useState(false);
 
   const loggedIn = useSelector((state) => state.userInformation.token);
   const loggedInUser = useSelector((state) => state.userInformation);
@@ -23,11 +22,7 @@ export default function NavBar(props) {
   };
 
   return (
-    <nav
-      className="navbar is-active"
-      role="navigation"
-      aria-label="main navigation"
-    >
+    <nav className="navbar" role="navigation" aria-label="main navigation">
       <div className="navbar-brand">
         <Link to="/">
           <div className="navbar-item">
@@ -36,12 +31,16 @@ export default function NavBar(props) {
         </Link>
 
         <div
+          onClick={() => {
+            setisActive(!isActive);
+          }}
           role="button"
-          className="navbar-burger burger"
+          className={`navbar-burger burger ${isActive ? "is-active" : ""}`}
+          // className={`navbar-burger burger ${showBurgerOptions && "is-active"}`}
+          // className="navbar-burger burger"
           aria-label="menu"
           aria-expanded="false"
           data-target="navbarBasicExample"
-          onClick={handleBurgerClick}
         >
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
@@ -49,17 +48,20 @@ export default function NavBar(props) {
         </div>
       </div>
 
-      <div id="navbarBasicExample" className="navbar-menu">
+      <div
+        id="navbarBasicExample"
+        className={`navbar-menu ${isActive ? "is-active" : ""}`}
+      >
         <div className="navbar-start">
           {loggedIn && (
-            <div className="navbar-item">
-              <Link to={`/users/${loggedInUser.id}`}>Home</Link>
-            </div>
+            <Link to={`/users/${loggedInUser.id}`} className="navbar-item">
+              Home
+            </Link>
           )}
 
-          <div className="navbar-item">
-            <Link to="/about">About</Link>
-          </div>
+          <Link to="/about" className="navbar-item">
+            About
+          </Link>
 
           <div className="navbar-item">
             {location.pathname !== "/" && <SearchBar small />}

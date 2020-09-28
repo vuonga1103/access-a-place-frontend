@@ -112,7 +112,7 @@ const userReducer = (state = userInitialState, action) => {
       return userInitialState;
 
     case "SET_USER_BOOKMARKS":
-      return { ...state, bookmarks: action.payload };
+      return { ...state, bookmarks: action.payload.reverse() };
 
     case "REMOVE_BOOKMARK":
       const bookmarkToRemove = action.payload;
@@ -162,7 +162,7 @@ const currentPageUserReducer = (state = pageUserInitialState, action) => {
         last_name,
         email,
         image_url,
-        reviews,
+        reviews: reviews.reverse(),
         date_joined,
       };
 

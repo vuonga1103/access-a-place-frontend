@@ -78,8 +78,6 @@ export default function Review(props) {
       })
         .then((response) => response.json())
         .then((result) => {
-          alert("Review deleted");
-
           dispatch({
             type: "SET_ESTABLISHMENT",
             payload: result.establishment,
@@ -165,12 +163,12 @@ export default function Review(props) {
           <hr />
           <strong>Comment: </strong>
           {content}
-          {loggedIn && loggedInUser.id === user_id && (
-            <div className={styles.delete} onClick={handleDeleteReviewClick}>
-              Delete
-            </div>
-          )}
         </div>
+        {loggedIn && loggedInUser.id === user_id && (
+          <div className={styles.delete} onClick={handleDeleteReviewClick}>
+            Delete
+          </div>
+        )}
       </div>
     </div>
   );

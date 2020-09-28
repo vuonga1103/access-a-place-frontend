@@ -138,6 +138,7 @@ export default function ReviewForm() {
                   placeholder="Write your review here..."
                   value={review.content}
                   onChange={handleCommentChange}
+                  maxLength="250"
                 ></textarea>
               </div>
               <div className="control">
