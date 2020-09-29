@@ -95,5 +95,5 @@ Access-A-Place is a crowdsource web application that allows user to view, bookma
 * [Bulma Switch](https://www.npmjs.com/package/bulma-switch)
 * [React Map GL](https://github.com/visgl/react-map-gl)
 * [React Rating](https://www.npmjs.com/package/react-rating)
-* [Alice Carousel] (https://www.npmjs.com/package/react-alice-carousel)
+* [Alice Carousel](https://www.npmjs.com/package/react-alice-carousel)
 * [MomentJS](https://momentjs.com/)
