@@ -11,5 +11,6 @@
   border-radius: 10px;
   max-width: 800px;
   margin: 2rem auto 4rem auto;
-  padding: 0.5rem 2rem 2rem 0.5rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }

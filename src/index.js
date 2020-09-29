@@ -78,6 +78,19 @@ const establishmentReducer = (state = establishmentInitialState, action) => {
 
       return { ...state, establishments: updatedEstablishments };
 
+    case "SORT_ESTABLISHMENTS":
+      const sortedEstablishments = [...state.establishments].sort(
+        (a, b) => b.average_overall - a.average_overall
+      );
+
+      return { ...state, establishments: sortedEstablishments };
+
+    case "UNSORT_ESTABLISHMENTS":
+      const unsortedEstablishments = [...state.establishments].sort(
+        (a, b) => a.id - b.id
+      );
+
+      return { ...state, establishments: unsortedEstablishments };
     default:
       return state;
   }

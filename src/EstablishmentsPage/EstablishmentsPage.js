@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import EstablishmentsContainer from "./EstablishmentsContainer/EstablishmentsContainer";
 import EstablishmentsMap from "./EstablishmentsMap/EstablishmentsMap";
@@ -6,6 +6,7 @@ import queryString from "query-string";
 import { useHistory, useLocation } from "react-router-dom";
 import styles from "./EstablishmentsPage.module.css";
 import LoadingIcon from "../LoadingIcon/LoadingIcon";
+import BulmaSwitch from "bulma-switch";
 
 export default function EstablishmentsPage() {
   const location = useLocation();
@@ -21,6 +22,8 @@ export default function EstablishmentsPage() {
   const { longitude, latitude } = useSelector(
     (state) => state.currentLocationInformation
   );
+
+  const [accessibilitySort, setAccessibilitySort] = useState(false);
 
   // Extracts params following 'search?' in URL, each param value extracted via .get()
   const params = new URLSearchParams(location.search);
@@ -74,6 +77,14 @@ export default function EstablishmentsPage() {
       });
   };
 
+  const handleAccessibilitySortClick = () => {
+    !accessibilitySort
+      ? dispatch({ type: "SORT_ESTABLISHMENTS" })
+      : dispatch({ type: "UNSORT_ESTABLISHMENTS" });
+
+    setAccessibilitySort(!accessibilitySort);
+  };
+
   if (!loaded) return <LoadingIcon />;
 
   return (
@@ -85,6 +96,19 @@ export default function EstablishmentsPage() {
       ) : (
         <>
           <div className={styles.establishments}>
+            <div className={`field ${styles.sort}`}>
+              <input
+                id="switchThinRoundedOutlinedInfo"
+                type="checkbox"
+                name="switchThinRoundedOutlinedInfo"
+                className="switch is-thin is-rounded is-outlined is-info"
+                checked={accessibilitySort}
+                onClick={handleAccessibilitySortClick}
+              />
+              <label htmlFor="switchThinRoundedOutlinedInfo">
+                Sort by Accessibility Rating
+              </label>
+            </div>
             <EstablishmentsContainer />
           </div>
           <div className={styles.map}>
