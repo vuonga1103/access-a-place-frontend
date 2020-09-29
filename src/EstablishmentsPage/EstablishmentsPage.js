@@ -101,12 +101,12 @@ export default function EstablishmentsPage() {
                 id="switchThinRoundedOutlinedInfo"
                 type="checkbox"
                 name="switchThinRoundedOutlinedInfo"
-                className="switch is-thin is-rounded is-outlined is-info"
+                className="switch is-thin is-rounded is-outlined is-danger"
                 checked={accessibilitySort}
                 onClick={handleAccessibilitySortClick}
               />
               <label htmlFor="switchThinRoundedOutlinedInfo">
-                Sort by Accessibility Rating
+                Sort by Accessibility
               </label>
             </div>
             <EstablishmentsContainer />

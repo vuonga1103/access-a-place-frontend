@@ -9,9 +9,6 @@
   margin-top: 2rem;
 }
 
-:global(.field).sort {
-  /* border: 2px solid orange; */
-}
 .establishments {
   margin: 2rem;
   width: 60%;
