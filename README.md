@@ -1,68 +1,99 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Access-A-Place
+[Video Demo]()
 
-## Available Scripts
+Access-A-Place is a crowdsource web application that allows user to view, bookmark, and write reviews of establishments based on accessibility.
 
-In the project directory, you can run:
+[Link to Backend API](https://github.com/vuonga1103/access-a-place-backend)
 
-### `yarn start`
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Table of Contents
+* [Getting Started](#getting-started)
+* [Features](#features)
+* [Tech Stack](#tech-stack)
+* [Tools](#tools)
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+![Access-A-Place](https://i.ibb.co/4R6sZyk/Screen-Shot-2020-09-29-at-2-50-03-PM.png)
 
-### `yarn test`
+<a name="getting-started"/>
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Getting Started
+1. Install [Rails Backend API](https://github.com/vuonga1103/access-a-place-backend)
+2. Install [Node.js and npm](https://www.npmjs.com/get-npm)
 
-### `yarn build`
+    ```$ brew install node```
+    
+3. Clone this repo and cd into the directory
+4. Install all dependencies
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    ```$ npm install```
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+5. Make sure the Rails server is running and then run the app
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    ```$ npm start```
+    
+<a name="features"/>
 
-### `yarn eject`
+## Features
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Search Establishments
+![Search Establishments](https://i.ibb.co/23Q28D5/Screen-Shot-2020-09-29-at-3-13-37-PM.png)
+* Search among 50 million businesses worldwide via city, state, country, zip, or by distance from current location via Yelp Fusion API data 
+* See displayed an interactive and dynamic map of location pins via Mapbox API
+* Sort search results by overall accessibility ratings
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### View An Establishment
+![View An Establishment](https://i.ibb.co/2jxsXGD/Screen-Shot-2020-09-29-at-2-59-20-PM.png)
+* View information regarding an establishment's hours of operation, location, categories, and accessibility reviews
+* View photos of the establishment in a dynamic carousel
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Review an Establishment
+![Review an Establishment](https://i.ibb.co/rpxKqnS/Screen-Shot-2020-09-29-at-3-08-56-PM.png)
+* Select ratings for the establishment based on accessibility criterias (parking, entrance, interior, bathroom) via "react-rating" library
+* Delete a review
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Bookmark Establishments
+![Bookmark Establishments](https://i.ibb.co/6v3CgvC/Screen-Shot-2020-09-29-at-3-15-22-PM.png)
+* Save an establishment via bookmark
+* Unsave a bookmark
 
-## Learn More
+### User's Profile
+![User's Profile](https://i.ibb.co/hdfJSSn/Screen-Shot-2020-09-29-at-3-16-49-PM.png)
+![Ranking Status](https://i.ibb.co/PrhQDc1/Screen-Shot-2020-09-29-at-3-17-39-PM.png)
+* View a user's profile, which includes list of recent reviews and bookmarks
+* View a user's ranking status on mouseover of icon, based on number of reviews submitted
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Auth & Account Features
+![Auth & Account Features](https://i.ibb.co/LZ3vtFJ/Screen-Shot-2020-09-29-at-3-05-02-PM.png)
+* Log in via email and password or existing Google account, completed with "react-google-oauth" library and "omniauth-google-oauth2" gem, and use of JWT, HTTParty, Passgen gems
+* Option to edit or delete account
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+<a name="tech-stack"/>
 
-### Code Splitting
+## Tech Stack
+* React.js
+* Redux
+* Ruby on Rails API (Backend: https://github.com/vuonga1103/access-a-place-backend)
+* PostgreSQL
+* HTML/CSS
+* Bulma
+* Active Record
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+<a name="tools"/>
 
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+## Tools
+* [Rack CORS](https://github.com/cyu/rack-cors)
+* [ActiveModel::Serializer](https://github.com/rails-api/active_model_serializers)
+* [BCrypt](https://github.com/codahale/bcrypt-ruby)
+* [React Router](https://reacttraining.com/react-router/web/guides/quick-start)
+* [Yelp Fusion API](https://www.yelp.com/fusion)
+* [JWT](https://github.com/jwt/ruby-jwt)
+* [HTTParty](https://github.com/jnunemaker/httparty)
+* [Passgen](https://github.com/Broham/PassGen)
+* [OmniAuth Google OAuth2](https://github.com/zquestz/omniauth-google-oauth2)
+* [React Google OAuth](https://www.npmjs.com/package/react-google-login)
+* [Query String](https://www.npmjs.com/package/query-string)
+* [Bulma Switch](https://www.npmjs.com/package/bulma-switch)
+* [React Map GL](https://github.com/visgl/react-map-gl)
+* [React Rating](https://www.npmjs.com/package/react-rating)
+* [Alice Carousel] (https://www.npmjs.com/package/react-alice-carousel)
+* [MomentJS](https://momentjs.com/)
