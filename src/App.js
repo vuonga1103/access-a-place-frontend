@@ -12,6 +12,7 @@ import NotFoundPage from "./NotFoundPage/NotFoundPage";
 import RegisterPage from "./RegisterPage/RegisterPage";
 import AboutPage from "./AboutPage/AboutPage";
 import UserPage from "./UserPage/UserPage";
+import SettingPage from "./SettingPage/SettingPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -73,6 +74,10 @@ function App() {
 
         <Route path="/login" exact>
           {loggedIn ? <Redirect to="/" /> : <LoginPage />}
+        </Route>
+
+        <Route path="/setting" exact>
+          {loggedIn ? <SettingPage /> : <NotFoundPage />}
         </Route>
 
         <Route path="/users/:id" exact component={UserPage} />

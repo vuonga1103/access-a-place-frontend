@@ -89,6 +89,9 @@ export default function NavBar(props) {
           </div>
         ) : (
           <div className="navbar-end">
+            <Link to="/setting" className="navbar-item">
+              Settings
+            </Link>
             <div className="navbar-item" onClick={handleLogOut}>
               <div className="buttons">
                 <div className="button is-light">Log Out</div>

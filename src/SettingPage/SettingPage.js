@@ -1,15 +1,14 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import UserForm from "../UserForm/UserForm";
 
-const RegisterPage = (props) => {
-  const history = useHistory();
+export default function SettingPage() {
+  const user = useSelector((state) => state.userInformation);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const [form, setForm] = useState({
-    first_name: "",
-    last_name: "",
     email: "",
     password: "",
     password_confirm: "",
@@ -23,26 +22,17 @@ const RegisterPage = (props) => {
       return;
     }
 
-    fetch("http://localhost:4000/users", {
-      method: "POST",
+    fetch(`http://localhost:4000/users/${user.id}`, {
+      method: "PATCH",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+        Authorization: `bearer ${localStorage.token}`,
       },
       body: JSON.stringify(form),
     })
       .then((response) => response.json())
       .then((result) => handleResponse(result));
-  };
-
-  const handleResponse = (resp) => {
-    if (resp.error) {
-      alert(resp.error);
-    } else {
-      localStorage.token = resp.token;
-      dispatch({ type: "SET_USER_INFORMATION", payload: resp });
-      history.push(`/users/${resp.user.id}`);
-    }
   };
 
   const handleChange = (e) => {
@@ -52,14 +42,25 @@ const RegisterPage = (props) => {
     });
   };
 
-  return (
-    <UserForm
-      handleChange={handleChange}
-      handleSubmit={handleSubmit}
-      handleResponse={handleResponse}
-      register
-    />
-  );
-};
+  const handleResponse = (resp) => {
+    if (resp.error) {
+      alert(resp.error);
+    } else {
+      localStorage.token = resp.token;
+      dispatch({ type: "SET_USER_INFORMATION", payload: resp });
+      history.push(`/users/${resp.user.id}`);
+      alert("Account Updated");
+    }
+  };
 
-export default RegisterPage;
+  return (
+    <div>
+      <UserForm
+        edit
+        handleSubmit={handleSubmit}
+        handleChange={handleChange}
+        handleResponse={handleResponse}
+      />
+    </div>
+  );
+}
