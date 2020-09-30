@@ -88,7 +88,7 @@ Access-A-Place is a crowdsource web application that allows user to view, bookma
 * [Yelp Fusion API](https://www.yelp.com/fusion)
 * [JWT](https://github.com/jwt/ruby-jwt)
 * [HTTParty](https://github.com/jnunemaker/httparty)
-* [Passgen](https://github.com/Broham/PassGen)
+* [Passgen](https://github.com/cryptice/Passgen)
 * [OmniAuth Google OAuth2](https://github.com/zquestz/omniauth-google-oauth2)
 * [React Google OAuth](https://www.npmjs.com/package/react-google-login)
 * [Query String](https://www.npmjs.com/package/query-string)
