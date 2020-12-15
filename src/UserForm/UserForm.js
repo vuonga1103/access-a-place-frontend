@@ -15,13 +15,14 @@ export default function UserForm(props) {
 
   // Parse token object that Google sends back upon "Google Sign In" click, send token to backend so backend can fetch user's info and return a user and their token
   const responseGoogle = (google_response) => {
-    const token = google_response.wc;
+    const token = google_response.xc;
+
     const requestOptions = {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${google_response.wc.access_token}`,
+        Authorization: `Bearer ${google_response.xc.access_token}`,
         "Content-Type": "application/json",
-        access_token: `${google_response.wc.access_token}`,
+        access_token: `${google_response.xc.access_token}`,
       },
       body: JSON.stringify(token),
     };
