@@ -15,6 +15,7 @@ import { Link } from "react-scroll";
 import selectedMarker from "../assets/selectedMarker.png";
 import no_image from "../assets/no_image.jpg";
 import Bookmark from "../Bookmark/Bookmark";
+import { BACKEND_BASE_URL } from "../utils/constants";
 
 export default function EstablishmentPage() {
   const history = useHistory();
@@ -40,7 +41,7 @@ export default function EstablishmentPage() {
   }, []);
 
   const fetchEstablishment = () => {
-    fetch("http://localhost:4000/yelp-establishment", {
+    fetch(`${BACKEND_BASE_URL}/yelp-establishment`, {
       method: "POST",
       headers: {
         Accept: "application/json",

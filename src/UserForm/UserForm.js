@@ -3,6 +3,7 @@ import React from "react";
 import { GoogleAPI, GoogleLogin } from "react-google-oauth";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { BACKEND_BASE_URL } from "../utils/constants";
 
 import styles from "./UserForm.module.css";
 
@@ -27,7 +28,7 @@ export default function UserForm(props) {
       body: JSON.stringify(token),
     };
 
-    return fetch("http://localhost:4000/auth/request", requestOptions)
+    return fetch(`${BACKEND_BASE_URL}/auth/request`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
         handleResponse(result);
@@ -35,7 +36,7 @@ export default function UserForm(props) {
   };
 
   const handleDeleteClick = () => {
-    fetch(`http://localhost:4000/users/${user.id}`, {
+    fetch(`${BACKEND_BASE_URL}/users/${user.id}`, {
       method: "DELETE",
       headers: { Authorization: `bearer ${localStorage.token}` },
     })

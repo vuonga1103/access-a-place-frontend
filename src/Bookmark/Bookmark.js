@@ -3,6 +3,7 @@ import styles from "./Bookmark.module.css";
 import bookmark_filled from "../assets/bookmark_filled.png";
 import bookmark_unfilled from "../assets/bookmark_unfilled.png";
 import { useDispatch, useSelector } from "react-redux";
+import { BACKEND_BASE_URL } from "../utils/constants";
 
 export default function Bookmark({ establishment }) {
   const dispatch = useDispatch();
@@ -14,7 +15,7 @@ export default function Bookmark({ establishment }) {
   const [bookmark, setBookmark] = useState(bookMarkFound);
 
   const handleClick = () => {
-    fetch("http://localhost:4000/add-or-remove-bookmark", {
+    fetch(`${BACKEND_BASE_URL}/add-or-remove-bookmark`, {
       method: "POST",
       headers: {
         Accept: "application/json",

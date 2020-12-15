@@ -7,6 +7,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import styles from "./EstablishmentsPage.module.css";
 import LoadingIcon from "../LoadingIcon/LoadingIcon";
 import BulmaSwitch from "bulma-switch";
+import { BACKEND_BASE_URL } from "../utils/constants";
 
 export default function EstablishmentsPage() {
   const location = useLocation();
@@ -60,7 +61,7 @@ export default function EstablishmentsPage() {
 
     const query = queryString.stringify(search);
 
-    fetch("http://localhost:4000/yelp-establishments", {
+    fetch(`${BACKEND_BASE_URL}/yelp-establishments`, {
       method: "POST",
       headers: {
         Accept: "application/json",

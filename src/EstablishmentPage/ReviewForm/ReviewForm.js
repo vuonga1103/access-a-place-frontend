@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import BusinessRating from "../../BusinessRating/BusinessRating";
+import { BACKEND_BASE_URL } from "../../utils/constants";
 import styles from "./ReviewForm.module.css";
 
 export default function ReviewForm() {
@@ -38,7 +39,7 @@ export default function ReviewForm() {
 
     if (!review.content) return alert("Please enter a review!");
 
-    fetch("http://localhost:4000/reviews", {
+    fetch(`${BACKEND_BASE_URL}/reviews`, {
       method: "POST",
       headers: {
         Accept: "application/json",

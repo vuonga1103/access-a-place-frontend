@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useLastLocation } from "react-router-last-location";
 import UserForm from "../UserForm/UserForm";
+import { BACKEND_BASE_URL } from "../utils/constants";
 
 const LoginPage = (props) => {
   const history = useHistory();
@@ -17,7 +18,7 @@ const LoginPage = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch("http://localhost:4000/login", {
+    fetch(`${BACKEND_BASE_URL}/login`, {
       method: "POST",
       headers: {
         Accept: "application/json",

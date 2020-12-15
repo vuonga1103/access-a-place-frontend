@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import UserForm from "../UserForm/UserForm";
+import { BACKEND_BASE_URL } from "../utils/constants";
 
 export default function SettingPage() {
   const user = useSelector((state) => state.userInformation);
@@ -22,7 +23,7 @@ export default function SettingPage() {
       return;
     }
 
-    fetch(`http://localhost:4000/users/${user.id}`, {
+    fetch(`${BACKEND_BASE_URL}/users/${user.id}`, {
       method: "PATCH",
       headers: {
         Accept: "application/json",

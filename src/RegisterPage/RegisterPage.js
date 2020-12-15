@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import UserForm from "../UserForm/UserForm";
+import { BACKEND_BASE_URL } from "../utils/constants";
 
 const RegisterPage = (props) => {
   const history = useHistory();
@@ -23,7 +24,7 @@ const RegisterPage = (props) => {
       return;
     }
 
-    fetch("http://localhost:4000/users", {
+    fetch(`${BACKEND_BASE_URL}/users`, {
       method: "POST",
       headers: {
         Accept: "application/json",

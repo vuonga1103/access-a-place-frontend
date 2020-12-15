@@ -6,6 +6,7 @@ import no_image from "../../../assets/no_image.jpg";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Medal from "../../../Medal/Medal";
+import { BACKEND_BASE_URL } from "../../../utils/constants";
 
 export default function Review(props) {
   const loggedInUser = useSelector((state) => state.userInformation);
@@ -33,7 +34,7 @@ export default function Review(props) {
   }, []);
 
   const getNumReviewsByUser = () => {
-    fetch(`http://localhost:4000/users/${user_id}/num-reviews`)
+    fetch(`${BACKEND_BASE_URL}/users/${user_id}/num-reviews`)
       .then((response) => response.json())
       .then((num) => {
         setNumReviews(num);
@@ -90,7 +91,7 @@ export default function Review(props) {
 
   const handleDeleteReviewClick = () => {
     if (window.confirm("Are you sure you want to delete this review?")) {
-      fetch(`http://localhost:4000/reviews/${id}`, {
+      fetch(`${BACKEND_BASE_URL}/reviews/${id}`, {
         method: "DELETE",
         headers: { Authorization: `bearer ${localStorage.token}` },
       })

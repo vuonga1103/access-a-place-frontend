@@ -7,6 +7,7 @@ import Review from "../EstablishmentPage/ReviewsContainer/Review/Review";
 import { useDispatch, useSelector } from "react-redux";
 import BookmarkedItem from "./BookmarkedItem/BookmarkedItem";
 import Medal from "../Medal/Medal";
+import { BACKEND_BASE_URL } from "../utils/constants";
 
 export default function UserPage() {
   const params = useParams();
@@ -27,7 +28,7 @@ export default function UserPage() {
   }, []);
 
   const fetchUser = () => {
-    fetch(`http://localhost:4000/users/${userId}`)
+    fetch(`${BACKEND_BASE_URL}/users/${userId}`)
       .then((response) => response.json())
       .then((result) => {
         return result.error

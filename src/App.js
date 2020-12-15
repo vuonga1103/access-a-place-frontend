@@ -13,6 +13,7 @@ import RegisterPage from "./RegisterPage/RegisterPage";
 import AboutPage from "./AboutPage/AboutPage";
 import UserPage from "./UserPage/UserPage";
 import SettingPage from "./SettingPage/SettingPage";
+import { BACKEND_BASE_URL } from "./utils/constants";
 
 function App() {
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ function App() {
   }, [loggedIn]);
 
   const persistLoggedInUser = () => {
-    fetch("http://localhost:4000/persist", {
+    fetch(`${BACKEND_BASE_URL}/persist`, {
       headers: { Authorization: `bearer ${localStorage.token}` },
     })
       .then((response) => response.json())
@@ -48,7 +49,7 @@ function App() {
   };
 
   const fetchUserBookmarks = () => {
-    fetch(`http://localhost:4000/user-bookmarks`, {
+    fetch(`${BACKEND_BASE_URL}/user-bookmarks`, {
       headers: { Authorization: `bearer ${localStorage.token}` },
     })
       .then((response) => response.json())
